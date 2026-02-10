@@ -1,0 +1,231 @@
+---
+title: "Car Stalls at Idle: What to Check First"
+excerpt: "Your engine dies every time you come to a stop. Before you start replacing parts randomly, here's a logical, step-by-step approach to finding and fixing the most common causes of idle stalling."
+publishedAt: 2026-02-10
+author: "The Driveway Mechanic Team"
+hubs:
+  - engine
+category: engine-performance
+articleType: troubleshooting
+vehicles:
+  - all
+difficulty: intermediate
+timeCostSkill:
+  time: "30-90 min"
+  diyCost: "$0-$100"
+  shopCost: "$100-$500"
+  skill: "intermediate"
+  notes: "Throttle body cleaning and MAF sensor cleaning are easy. Vacuum leak diagnosis takes patience."
+safetyLevel: low
+partsNeeded:
+  - "Throttle body cleaner"
+  - "MAF sensor cleaner"
+  - "Replacement IAC valve (if faulty)"
+  - "Vacuum hoses (if cracked)"
+toolsNeeded:
+  - "Basic socket set and screwdrivers"
+  - "Throttle body cleaner spray"
+  - "MAF sensor cleaner spray"
+  - "Propane torch or carb cleaner (for vacuum leak detection)"
+  - "OBD-II scanner"
+obdCodes:
+  - "P0505"
+  - "P0506"
+  - "P0507"
+  - "P0171"
+  - "P0174"
+  - "P0300"
+  - "P0101"
+topics:
+  - idle
+  - stalling
+  - throttle-body
+  - IAC
+  - vacuum-leak
+  - engine
+seo:
+  description: "Car stalls at idle or dies at stop lights? Learn how to diagnose and fix the most common causes — dirty throttle body, vacuum leaks, IAC valve, and more — in your driveway."
+---
+
+import FixFlow from '@/components/mdx/FixFlow.astro'
+import SafetyCallout from '@/components/mdx/SafetyCallout.astro'
+import ToolsParts from '@/components/mdx/ToolsParts.astro'
+import Callout from '@/components/mdx/Callout.astro'
+import CostComparison from '@/components/mdx/CostComparison.astro'
+import AffiliateProduct from '@/components/mdx/AffiliateProduct.astro'
+
+You're sitting at a red light and the engine just… quits. Or it stumbles and nearly dies when you shift into drive. Idle stalling is one of the most common driveability complaints, and while it feels alarming, the cause is usually something simple and fixable.
+
+Your engine needs three things to idle smoothly: the right amount of air, the right amount of fuel, and a reliable spark. When idle stalling happens, one of those three is off. Let's figure out which one.
+
+<SafetyCallout
+  severity="warning"
+  bullets={[
+    "Keep hands and loose clothing away from the engine while it's running — belts and fans don't care about your fingers.",
+    "Throttle body cleaner and carb cleaner are flammable — don't spray them near ignition sources.",
+    "If using propane for vacuum leak detection, work in a well-ventilated area and keep the flame controlled.",
+    "A stalling car can lose power steering and power brakes — be very careful if it stalls while driving. Pull over safely, shift to neutral, and restart if possible."
+  ]}
+/>
+
+<ToolsParts
+  mustHave={[
+    { name: "Throttle body cleaner", description: "For cleaning carbon buildup off the throttle plate and bore. Do NOT use carb cleaner on electronic throttle bodies." },
+    { name: "Basic socket set and screwdrivers", description: "For removing the air intake tube to access the throttle body." },
+    { name: "OBD-II scanner", description: "Check for trouble codes — they often point directly at the problem." }
+  ]}
+  niceToHave={[
+    { name: "MAF sensor cleaner", description: "Specifically designed not to damage the delicate MAF sensor wire. Never use throttle body cleaner on the MAF.", priceRange: "$8-$12" },
+    { name: "Propane enrichment tool or unlit propane torch", description: "For finding vacuum leaks — engine RPM will change when propane hits a leak.", priceRange: "$15-$25" },
+    { name: "Fuel pressure gauge", description: "Tests whether the fuel pump delivers adequate pressure at idle.", priceRange: "$20-$35" }
+  ]}
+/>
+
+## Start With the Codes
+
+Before touching anything, plug in an OBD-II scanner. Idle stalling often sets codes that point you right at the problem:
+
+- **P0505-P0507** — Idle Air Control (IAC) system malfunction
+- **P0171/P0174** — System too lean (vacuum leak, weak fuel pump, or dirty MAF)
+- **P0300** — Random misfire (could be spark, fuel, or compression)
+- **P0101** — MAF sensor range/performance issue
+
+Even if no codes are stored, scan anyway. Some issues only set "pending" codes that won't turn on the check engine light.
+
+<Callout tone="tip">
+**No scanner? No problem.** Most auto parts stores (AutoZone, O'Reilly, Advance) will scan your codes for free. Write them down and come back home to fix the issue.
+</Callout>
+
+## Step-by-Step Diagnosis
+
+<FixFlow
+  title="Stalls at Idle — Diagnosis Flow"
+  intro="We start with the easiest, most common fixes and work toward more complex causes. Most idle stalling is solved in the first two steps."
+  steps={[
+    {
+      title: "Clean the throttle body",
+      details: "This is the #1 cause of idle stalling and the easiest fix. Over time, carbon and oil vapors build up on the throttle plate and bore, restricting airflow at idle. Remove the air intake hose from the throttle body. With the engine OFF, spray throttle body cleaner on the throttle plate and the walls of the bore. Open the plate manually (or have someone press the gas pedal on cable-throttle cars) and clean the edges where it seals. Use a rag to wipe away the black gunk. Reconnect the intake hose. The car may idle rough for a minute after cleaning as it relearns — that's normal. Some cars require an idle relearn procedure (key on/off cycles or a short drive).",
+      outcome: "Idle smooths out and holds steady around 650-800 RPM.",
+      nextIfPass: "You're done — dirty throttle body was the culprit.",
+      nextIfFail: "Idle still rough or stalling — move to Step 2."
+    },
+    {
+      title: "Clean or replace the Idle Air Control (IAC) valve",
+      details: "The IAC valve (on older cars with cable-operated throttles) controls idle speed by allowing a measured amount of air to bypass the throttle plate. Carbon buildup can stick it open, closed, or anywhere in between. On most cars, it's mounted on or near the throttle body — a small cylindrical valve with an electrical connector and one or two bolts. Remove it, spray the pintle and the port with throttle body cleaner, let it dry, and reinstall. If cleaning doesn't help, replacement is usually $30-$80. Note: Many newer cars (2005+) use electronic throttle bodies that handle idle control internally — if yours does, a dirty throttle body (Step 1) is even more likely.",
+      outcome: "Idle stabilizes and doesn't stall.",
+      nextIfPass: "Fixed — the IAC was clogged or faulty.",
+      nextIfFail: "IAC is working — move to Step 3."
+    },
+    {
+      title: "Check for vacuum leaks",
+      details: "A vacuum leak lets unmetered air into the engine, leaning out the mixture and causing rough idle or stalling. The spray test: with the engine idling, carefully spray carb cleaner or propane around vacuum hoses, the intake manifold gasket, the throttle body gasket, and the brake booster hose. If the engine RPM changes (rises or smooths out) when you spray a specific area, you've found your leak. Common leak points: cracked or disconnected vacuum hoses (especially the PCV valve hose and brake booster hose), worn intake manifold gaskets (common on certain GM and Ford V6/V8 engines), and torn boots between the MAF sensor and throttle body.",
+      outcome: "No RPM change during spray test — no vacuum leaks.",
+      nextIfPass: "No leaks found — move to Step 4.",
+      nextIfFail: "Found a leak — replace the cracked hose or gasket. Vacuum hoses are cheap ($2-$10). Intake manifold gaskets are more involved ($30-$60 in parts, 2-4 hours labor)."
+    },
+    {
+      title: "Clean the MAF (Mass Air Flow) sensor",
+      details: "The MAF sensor measures incoming air so the computer can add the right amount of fuel. A dirty MAF reads low, causing the engine to run lean — stumbling at idle, stalling, and poor throttle response. The MAF is usually in the air intake tube between the air filter box and the throttle body. Unplug it, remove the two screws holding it in, and carefully spray the sensor wire (the tiny hot wire or film element inside) with MAF sensor cleaner ONLY — never touch the wire or use any other cleaner. Let it air dry completely (5 minutes), reinstall, and start the engine.",
+      outcome: "Idle improves and throttle response feels smoother.",
+      nextIfPass: "Dirty MAF was the issue — consider replacing your air filter too.",
+      nextIfFail: "MAF is clean — move to Step 5."
+    },
+    {
+      title: "Check fuel pressure",
+      details: "Low fuel pressure means the engine isn't getting enough fuel to run properly, especially at idle when the fuel demand is low but constant. Connect a fuel pressure gauge to the test port on the fuel rail (most fuel-injected cars have one). Key on, engine off: you should see the spec pressure for your vehicle (typically 40-60 PSI for most port-injected cars, higher for direct injection). Start the engine: pressure should hold steady. If pressure is low or drops quickly, suspect a weak fuel pump, clogged fuel filter, or a leaking fuel pressure regulator. Fuel filter replacement ($10-$30) is easy on older cars but some newer cars have the filter inside the fuel tank with the pump.",
+      outcome: "Fuel pressure is within spec.",
+      nextIfPass: "Fuel delivery is fine. If you've reached this point, consider checking spark plugs, ignition coils, or having a shop do a compression test.",
+      nextIfFail: "Low fuel pressure — replace the fuel filter first (cheap and easy). If pressure is still low, the fuel pump likely needs replacement (usually a shop job, $300-$600 installed)."
+    }
+  ]}
+  whenToCallPro="If you suspect intake manifold gasket leaks on a V6/V8, if fuel pump replacement is needed, if the engine has compression issues, or if you've cleaned everything and the stalling persists intermittently — a shop with a professional scan tool can watch live data to catch what a basic scanner misses."
+/>
+
+## DIY vs. Shop Costs
+
+<CostComparison
+  title="Idle Stalling Diagnosis & Repair"
+  diyCost="$0-$100"
+  shopCost="$100-$500"
+  diyTime="30-90 minutes"
+  shopTime="1-3 hours"
+  diyDescription="Throttle body cleaner is $6, MAF cleaner is $8, and an IAC valve runs $30-$80. Most stalling issues are fixed with a can of cleaner and 20 minutes of work."
+  shopDescription="Shops charge $80-$150 for idle diagnosis. Parts and labor for IAC valves, vacuum repairs, or MAF sensors add up quickly."
+  breakdownDIY={[
+    { item: "Throttle body cleaner spray", cost: "$6-$10" },
+    { item: "MAF sensor cleaner spray", cost: "$8-$12" },
+    { item: "IAC valve replacement (if needed)", cost: "$30-$80" },
+    { item: "Vacuum hose replacement (if needed)", cost: "$2-$10" }
+  ]}
+  breakdownShop={[
+    { item: "Idle/driveability diagnosis", cost: "$80-$150" },
+    { item: "Throttle body cleaning service", cost: "$80-$150" },
+    { item: "IAC valve replacement", cost: "$150-$300" },
+    { item: "Vacuum leak repair", cost: "$100-$300" }
+  ]}
+/>
+
+## Recommended Products
+
+<AffiliateProduct
+  name="CRC Throttle Body & Air Intake Cleaner"
+  url="https://www.amazon.com/dp/B000LIUSPY?tag=driveway-mechanic-20"
+  merchant="Amazon"
+  price="$7"
+  pros={[
+    "Safe for all throttle bodies including electronic",
+    "Dissolves carbon buildup quickly",
+    "One can is usually enough for multiple cleanings"
+  ]}
+  cons={[
+    "Strong smell — use in a well-ventilated area"
+  ]}
+/>
+
+<AffiliateProduct
+  name="CRC MAF Sensor Cleaner"
+  url="https://www.amazon.com/dp/B000J19EPA?tag=driveway-mechanic-20"
+  merchant="Amazon"
+  price="$9"
+  pros={[
+    "Specifically formulated not to damage the delicate MAF element",
+    "Evaporates clean — no residue",
+    "Plastic-safe — won't harm the MAF housing"
+  ]}
+  cons={[
+    "Pricier than generic cleaner, but the MAF sensor costs $80-$200 to replace if you damage it"
+  ]}
+/>
+
+<AffiliateProduct
+  name="FOXWELL NT301 OBD-II Scanner"
+  url="https://www.amazon.com/dp/B00UHB2GJA?tag=driveway-mechanic-20"
+  merchant="Amazon"
+  price="$36"
+  pros={[
+    "Reads and clears trouble codes on any 1996+ vehicle",
+    "Shows live data — idle RPM, fuel trims, MAF readings",
+    "Built-in code lookup so you know what each code means",
+    "I/M readiness check for emissions testing"
+  ]}
+  cons={[
+    "Not as full-featured as professional scan tools",
+    "Can't do advanced module programming"
+  ]}
+/>
+
+<Callout tone="note">
+**About the idle relearn:** After cleaning the throttle body, many cars need to "relearn" their idle. Symptoms include rough idle for a few minutes, slight stalling on the first startup, or a higher-than-normal idle that settles down. Most cars relearn automatically after 10-15 minutes of driving. Some (especially Nissan and Subaru) have a specific procedure — search your year/make/model + "idle relearn" if your car is fussy after cleaning.
+</Callout>
+
+## Prevention Tips
+
+Stalling issues love neglected engines. A few easy habits go a long way:
+
+- **Replace your air filter on schedule** (every 15,000-30,000 miles). A dirty air filter makes everything downstream dirtier — the MAF, the throttle body, everything.
+- **Use quality fuel.** Cheap gas with lots of ethanol can leave deposits on intake valves and injectors. An occasional tank of Top Tier fuel helps.
+- **Don't ignore a rough idle.** If your car idles a little rough but doesn't stall yet, it's heading toward stalling. Fix it while it's easy.
+- **Check vacuum hoses during oil changes.** While you're under the hood, give every rubber hose a squeeze. Cracks, soft spots, or disconnected ends are easy to catch visually.
+- **Clean the throttle body every 30,000-50,000 miles** as preventive maintenance. It takes 15 minutes and a $6 can of cleaner. Think of it like flossing for your engine.
+
+Idle stalling is usually a dirty throttle body or a small vacuum leak. Grab a can of cleaner, spend 20 minutes under the hood, and there's a great chance you'll fix it yourself.

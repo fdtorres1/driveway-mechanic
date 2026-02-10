@@ -1,0 +1,252 @@
+---
+title: "Brakes Grinding: What to Check First"
+excerpt: "Grinding brakes mean your pads are gone and metal is hitting metal. This is urgent — here's how to assess the damage and decide your next move."
+publishedAt: 2026-02-10
+author: "The Driveway Mechanic Team"
+hubs:
+  - brakes
+category: brake-noise
+articleType: troubleshooting
+vehicles:
+  - all
+difficulty: intermediate
+timeCostSkill:
+  time: "30-60 min"
+  diyCost: "$80-$300"
+  shopCost: "$300-$700"
+  skill: intermediate
+  notes: "Pad and rotor replacement requires more skill than pads alone"
+safetyLevel: medium
+partsNeeded:
+  - Brake pads
+  - Brake rotors (likely needed)
+  - Brake caliper hardware kit
+  - Brake cleaner spray
+  - Brake pad grease
+toolsNeeded:
+  - Jack and jack stands
+  - Lug wrench or impact wrench
+  - Socket set (including caliper bracket bolts)
+  - C-clamp or brake piston tool
+  - Torque wrench
+  - Wire brush
+  - Brake cleaner
+obdCodes: []
+topics:
+  - brakes
+  - grinding
+  - brake-pads
+  - rotors
+  - calipers
+seo:
+  description: "Brakes grinding when you stop? Metal-on-metal means your pads are gone. Learn how to assess rotor damage, check calipers, and decide between pads-only vs. pads-and-rotors replacement."
+---
+
+import SafetyCallout from '@/components/mdx/SafetyCallout.astro'
+import FixFlow from '@/components/mdx/FixFlow.astro'
+import ToolsParts from '@/components/mdx/ToolsParts.astro'
+import Callout from '@/components/mdx/Callout.astro'
+import CostComparison from '@/components/mdx/CostComparison.astro'
+import AffiliateProduct from '@/components/mdx/AffiliateProduct.astro'
+import DifficultyMeter from '@/components/mdx/DifficultyMeter.astro'
+import TorqueSpec from '@/components/mdx/TorqueSpec.astro'
+
+# Brakes Grinding: What to Check First
+
+Let's be direct: **if your brakes are grinding, this is more urgent than squealing.** That harsh, metallic, grating sound means the brake pad friction material is completely worn through and the metal backing plate is grinding directly against the rotor. You're literally destroying parts with every stop.
+
+This isn't a "deal with it next weekend" situation. Grinding brakes mean:
+- **Longer stopping distances** — you have significantly reduced braking power
+- **Rotor damage is happening right now** — what could have been a $60 pad job is becoming a $200+ pad-and-rotor job
+- **Caliper damage is possible** — if the rotor gets thin enough, the caliper piston can overextend
+
+The good news? Even grinding brakes are a very manageable DIY repair if you catch them before caliper damage occurs. Let's assess what you're dealing with.
+
+<DifficultyMeter level="intermediate" label="Pad and rotor replacement" />
+
+<SafetyCallout
+  severity="danger"
+  bullets={[
+    "Grinding brakes have reduced stopping power — drive slowly and leave extra following distance until repaired",
+    "Do NOT drive on grinding brakes any longer than absolutely necessary",
+    "Always use jack stands — never work under a car supported only by a jack",
+    "Brake dust from worn pads can contain metal shavings — wear gloves and eye protection",
+    "If brakes feel spongy, pull to one side, or the pedal goes to the floor, have the car towed — do not drive it"
+  ]}
+/>
+
+## What's Actually Happening
+
+When brake pads wear down completely, the soft friction material is gone and you're left with the steel backing plate. This steel plate presses directly against the cast iron rotor when you brake. That's the grinding noise — **metal on metal.**
+
+Here's why every mile matters:
+
+- **Day 1-3 of grinding:** Rotors are getting scored (deep grooves). Rotor resurfacing might still save them.
+- **Week 1-2:** Rotors are severely gouged. They need replacement now, not just resurfacing.
+- **Beyond that:** Rotors can get dangerously thin, overheat, crack, or the caliper piston can push through the bore.
+
+<Callout tone="warning">
+**The math is simple:** Brake pads alone cost $30-$70 per axle. Pads + rotors cost $80-$200 per axle. But if you let grinding continue until caliper damage occurs, you're looking at $150-$400 for a caliper *on top* of pads and rotors. Stop driving on grinding brakes.
+</Callout>
+
+## The Diagnostic Flow
+
+<ToolsParts
+  mustHave={[
+    { name: "Jack and jack stands", description: "To safely lift the car and remove wheels" },
+    { name: "Lug wrench or impact wrench", description: "For wheel removal" },
+    { name: "Socket set (14mm-19mm common)", description: "For caliper bracket bolts — size varies by vehicle" },
+    { name: "C-clamp or brake piston tool", description: "For pushing the caliper piston back to fit new, thicker pads" },
+    { name: "Torque wrench", description: "Caliper bracket bolts must be torqued to spec — this isn't optional on brake work" },
+    { name: "Brake cleaner spray", description: "For cleaning the rotor and caliper mounting surfaces" }
+  ]}
+  niceToHave={[
+    { name: "Breaker bar", description: "Caliper bracket bolts can be very tight — a breaker bar saves knuckles", priceRange: "$12-$25" },
+    { name: "Wire brush", description: "For cleaning rust and debris from caliper brackets and slide pins", priceRange: "$3-$8" },
+    { name: "Micrometer or rotor gauge", description: "For measuring rotor thickness against minimum spec", priceRange: "$15-$35" },
+    { name: "Anti-seize compound", description: "For rotor hub mating surface to prevent future rust-seizing", priceRange: "$5-$10" }
+  ]}
+/>
+
+<FixFlow
+  steps={[
+    {
+      title: "Confirm it's the brakes (not something else)",
+      details: "Grinding that happens ONLY when you press the brake pedal is almost certainly brake-related. But grinding that happens while driving (without braking) could be a wheel bearing, CV joint, or debris caught in a dust shield. Press the brakes at low speed in a safe area — if the grinding intensifies or changes with pedal pressure, it's the brakes.",
+      outcome: "Confirming the noise is brake-related focuses your repair correctly",
+      nextIfPass: "Grinding happens with braking → Continue to Step 2",
+      nextIfFail: "Grinding happens without braking → Check wheel bearing, dust shield, CV joint"
+    },
+    {
+      title: "Identify which wheels are grinding",
+      details: "At very low speed in a parking lot, apply the brakes gently and try to determine which side (or both sides) the grinding comes from. Have someone walk alongside the car listening, or roll down windows one at a time. Front brakes do 60-70% of the braking work and wear faster, so they're the most common culprit. But always check all four corners.",
+      outcome: "Knowing which axle to focus on first",
+      nextIfPass: "Identified the grinding wheel(s) → Continue to Step 3",
+      nextIfFail: "Can't isolate → Inspect all four corners"
+    },
+    {
+      title: "Remove the wheel and inspect the pads",
+      details: "Jack up the car, secure on jack stands, remove the wheel. Look at the brake pads. If you can see the metal backing plate with little to no friction material remaining, that confirms your diagnosis. Check both the inner and outer pad — sometimes one side wears faster than the other (which indicates a sticky caliper slide pin that also needs attention). Measure the remaining pad material — anything under 2mm is considered 'gone.'",
+      outcome: "Visual confirmation of pad condition",
+      nextIfPass: "Pads have 3mm+ material remaining → Grinding might be debris, check rotor",
+      nextIfFail: "Pads are metal-on-metal → They need replacement. Continue to Step 4"
+    },
+    {
+      title: "Assess the rotor damage",
+      details: "This is the critical step that determines your repair scope. Look at the rotor surface. Run your fingernail across it. Light scoring (you can feel grooves but they're shallow) might be okay with new pads. Deep grooves you can catch your fingernail in, visible gouges, blue heat discoloration, or a pronounced lip at the rotor edge all mean the rotor needs to be replaced. If you have a micrometer, measure the rotor thickness and compare it to the minimum thickness stamped on the rotor hat (the center part).",
+      outcome: "Rotor condition determines whether you need pads only or pads + rotors",
+      nextIfPass: "Rotors have light scoring only and are above minimum thickness → Pads-only replacement may work",
+      nextIfFail: "Rotors are deeply grooved, below minimum thickness, or heat-damaged → Replace both pads and rotors"
+    },
+    {
+      title: "Inspect the caliper and slide pins",
+      details: "Remove the caliper (usually 2 bolts on the back). It should slide off smoothly. Check the slide pins — pull them out and make sure they move freely and are properly greased. Sticky slide pins cause uneven pad wear and are a leading cause of premature grinding on one side. Also check the caliper piston boot for tears and the piston for smooth operation. If the piston won't push back in with a C-clamp, the caliper may be seized.",
+      outcome: "Caliper and slide pin condition determines if additional parts are needed",
+      nextIfPass: "Caliper and pins are fine → Proceed with pad/rotor replacement",
+      nextIfFail: "Sticky pins → Clean and regrease. Seized caliper → Replace caliper ($40-$100 per side)"
+    },
+    {
+      title: "Replace pads and rotors",
+      details: "Remove the caliper bracket (2 larger bolts). Slide off the old rotor (it may be stuck from rust — a few taps with a rubber mallet helps). Clean the hub surface with a wire brush. Install the new rotor. Clean the new rotor with brake cleaner to remove the anti-rust coating. Reassemble the bracket (torque to spec!), install new pads with anti-squeal compound on the back, push the caliper piston back, and reinstall the caliper. Reinstall the wheel and torque the lugs.",
+      outcome: "Fresh pads and rotors restore full braking performance",
+      nextIfPass: "Brakes feel firm and quiet → Bed in the new pads (see below)",
+      nextIfFail: "Pedal feels soft or spongy → You may have introduced air into the system — bleed the brakes"
+    }
+  ]}
+  whenToCallPro="Call a mechanic if: the caliper piston is seized and won't compress, the brake line is damaged, the pedal goes to the floor even after pad replacement (indicating a hydraulic issue), you find a cracked rotor, or you're not comfortable torquing caliper brackets to spec. Brakes are safety-critical — there's no shame in calling in backup."
+/>
+
+<TorqueSpec
+  specs={[
+    { part: "Caliper bracket bolts", torque: "75-100 ft-lbs (varies by vehicle)", notes: "Check your service manual — this is critical" },
+    { part: "Caliper slide pin bolts", torque: "25-35 ft-lbs (varies by vehicle)", notes: "Over-torquing can strip the bolt or bracket" },
+    { part: "Lug nuts", torque: "80-100 ft-lbs (varies by vehicle)", notes: "Always torque in a star pattern" }
+  ]}
+/>
+
+<Callout tone="tip">
+**Bedding in new pads:** After installation, do 10-15 moderate stops from 30mph, allowing 30 seconds of cooling between each. Then do 3-4 firm stops from 40mph. Avoid coming to a complete stop during this process if possible — that can transfer pad material unevenly. After bedding in, avoid hard braking for 200 miles.
+</Callout>
+
+## Pads Only vs. Pads + Rotors: The Decision
+
+This is the big question, and here's a simple rule:
+
+**If the brakes have been grinding for more than a day or two, replace the rotors.** Period. The money you save trying to reuse scored rotors will come back as noise, vibration, and premature pad wear. New rotors are cheap insurance for a smooth, quiet brake job.
+
+| Scenario | Recommendation | Cost (DIY, per axle) |
+|----------|---------------|---------------------|
+| Pads worn but rotors smooth | Pads only | $30-$70 |
+| Light rotor scoring | Pads + rotor resurfacing | $60-$120 |
+| Deep grooves or metal-on-metal | Pads + new rotors | $80-$200 |
+| Caliper seized | Pads + rotors + caliper | $120-$300 |
+
+<CostComparison
+  title="Grinding Brake Repair Costs"
+  diyCost="$80-$300"
+  shopCost="$300-$700"
+  diyTime="1-3 hours (per axle)"
+  shopTime="1-2 hours"
+  diyDescription="Pads and rotors per axle run $80-$200 in parts. Add $10-$20 for hardware, grease, and brake cleaner. The tools pay for themselves on the first job."
+  shopDescription="Shops typically charge $300-$500 per axle for pads and rotors including labor. Caliper replacement adds $150-$400 per side. Many shops offer package deals."
+  breakdownDIY={[
+    { item: "Brake pads (ceramic, per axle)", cost: "$30-$70" },
+    { item: "Brake rotors (pair)", cost: "$40-$120" },
+    { item: "Hardware kit", cost: "$8-$15" },
+    { item: "Brake cleaner, grease, anti-seize", cost: "$10-$20" },
+    { item: "Caliper (if needed, each)", cost: "$40-$100" }
+  ]}
+  breakdownShop={[
+    { item: "Pads + rotors per axle (installed)", cost: "$300-$500" },
+    { item: "Caliper replacement (per side)", cost: "$150-$400" },
+    { item: "Brake fluid flush (if recommended)", cost: "$75-$150" },
+    { item: "Rotor resurfacing (per rotor, if viable)", cost: "$25-$50" }
+  ]}
+/>
+
+<AffiliateProduct
+  name="Detroit Axle Brake Kit (Pads + Rotors)"
+  url="https://www.amazon.com/dp/B07C7BHJWX?tag=driveway-mechanic-20"
+  merchant="Amazon"
+  price="$80-$150"
+  pros={["Complete kit: rotors + ceramic pads + hardware for one axle", "Vehicle-specific kits — search by your year/make/model", "Solid quality for the price", "Free shipping on most kits"]}
+  cons={["Not premium/performance-grade", "Rotors may need brake cleaner before install (oil coating)"]}
+/>
+
+<AffiliateProduct
+  name="Power Stop K-Series Brake Kit"
+  url="https://www.amazon.com/dp/B00BWVNTUU?tag=driveway-mechanic-20"
+  merchant="Amazon"
+  price="$120-$200"
+  pros={["Carbon-fiber ceramic pads — excellent noise and dust performance", "Drilled and slotted rotors for better heat dissipation", "Stainless steel hardware included", "Higher-tier option for daily drivers who want better-than-OE"]}
+  cons={["Pricier than basic kits", "Drilled rotors may be overkill for regular driving"]}
+/>
+
+<AffiliateProduct
+  name="EPAuto Torque Wrench (1/2-inch Drive, 25-250 ft-lbs)"
+  url="https://www.amazon.com/dp/B07SHGPJM3?tag=driveway-mechanic-20"
+  merchant="Amazon"
+  price="$40"
+  pros={["Essential for torquing caliper brackets and lug nuts to spec", "Click-type with clear scale — easy to use", "Covers the range needed for all brake work and wheel bolts"]}
+  cons={["Not a precision instrument — ±4% accuracy", "Needs periodic recalibration"]}
+/>
+
+## Prevention: How to Avoid Getting Here Again
+
+- **Listen for squealing.** Grinding is what happens when you ignore squealing. The wear indicator squeal gives you 1,000-3,000 miles of warning — use that time to replace pads.
+- **Inspect brakes every 15,000-20,000 miles** (or every other oil change). A 60-second visual check through the wheel spokes catches wear early.
+- **Use quality pads.** Ceramic pads last longer and come with better wear indicators than bargain pads.
+- **Don't ride the brakes.** Use engine braking on long downhills. Constant light braking generates heat that glazes pads and accelerates wear.
+- **Replace both sides.** Always replace pads (and rotors) as a pair per axle. Mismatched wear causes uneven braking.
+
+## Related Problems
+
+If your brakes are **squealing but not grinding**, you've caught it earlier — check our [brakes squealing guide](/articles/brakes-squealing) for a less urgent approach.
+
+If the **brake pedal pulsates or vibrates** when stopping, that's typically warped rotors from heat — see our [brake vibration guide](/articles/brake-vibration-pulsation).
+
+If the **car pulls to one side when braking**, you likely have a stuck caliper or uneven pad wear on one side. This needs attention to prevent uneven tire wear and safety issues.
+
+<Callout tone="note">
+**Real talk:** Grinding brakes are one of the most satisfying DIY fixes. The difference between metal-on-metal grinding and fresh ceramic pads on smooth rotors is night and day. Your first stop after the repair will make you grin. You've got this — just don't put it off another day.
+</Callout>
