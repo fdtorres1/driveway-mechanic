@@ -1,0 +1,160 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+  canonical?: string;
+  noIndex?: boolean;
+}
+
+const { title, description, canonical, noIndex = false } = Astro.props;
+
+const siteTitle = "The Driveway Mechanic";
+const tagline = "Fix it yourself. Save hundreds.";
+const defaultDescription = "Learn to fix and maintain your car yourself with expert DIY guides, troubleshooting tips, and money-saving automotive advice.";
+
+const fullTitle = title === siteTitle ? `${siteTitle} - ${tagline}` : `${title} | ${siteTitle}`;
+const metaDescription = description || defaultDescription;
+---
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    
+    <title>{fullTitle}</title>
+    <meta name="description" content={metaDescription} />
+    
+    {canonical && <link rel="canonical" href={canonical} />}
+    {noIndex && <meta name="robots" content="noindex, nofollow" />}
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:site_name" content={siteTitle} />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={metaDescription} />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Global Styles -->
+    <style>
+      :root {
+        --background: 0 0% 100%;
+        --foreground: 0 0% 3.9%;
+      }
+      
+      .dark {
+        --background: 0 0% 3.9%;
+        --foreground: 0 0% 98%;
+      }
+    </style>
+  </head>
+  
+  <body class="min-h-screen bg-background text-foreground antialiased">
+    <header class="sticky top-0 z-50 border-b border-foreground/10 bg-background/80 backdrop-blur-sm">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex h-16 items-center justify-between">
+          <!-- Logo -->
+          <div class="flex items-center">
+            <a href="/" class="flex items-center gap-2">
+              <div class="flex h-8 w-8 items-center justify-center rounded-full bg-accent">
+                <span class="text-lg text-white">🔧</span>
+              </div>
+              <div>
+                <div class="text-lg font-bold text-foreground">The Driveway Mechanic</div>
+                <div class="text-xs text-foreground/60 -mt-1">Fix it yourself. Save hundreds.</div>
+              </div>
+            </a>
+          </div>
+
+          <!-- Navigation -->
+          <nav class="hidden md:block">
+            <ul class="flex items-center gap-8 text-sm font-medium">
+              <li><a href="/fix" class="text-foreground/70 hover:text-foreground transition-colors">Fix & Troubleshoot</a></li>
+              <li><a href="/maintain" class="text-foreground/70 hover:text-foreground transition-colors">Maintain & Prevent</a></li>
+              <li><a href="/buy" class="text-foreground/70 hover:text-foreground transition-colors">Buy & Compare</a></li>
+              <li><a href="/learn" class="text-foreground/70 hover:text-foreground transition-colors">Learn</a></li>
+              <li><a href="/seasonal" class="text-foreground/70 hover:text-foreground transition-colors">Seasonal</a></li>
+            </ul>
+          </nav>
+
+          <!-- Mobile menu button -->
+          <button class="md:hidden rounded-lg p-2 hover:bg-foreground/10">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="border-t border-foreground/10 bg-foreground/[.02] mt-16">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid gap-8 md:grid-cols-4">
+          <!-- About -->
+          <div class="md:col-span-1">
+            <div class="flex items-center gap-2 mb-4">
+              <div class="flex h-6 w-6 items-center justify-center rounded-full bg-accent">
+                <span class="text-sm text-white">🔧</span>
+              </div>
+              <div class="text-sm font-bold">The Driveway Mechanic</div>
+            </div>
+            <p class="text-sm text-foreground/70">
+              Learn to fix and maintain your car yourself with expert DIY guides and money-saving automotive advice.
+            </p>
+          </div>
+
+          <!-- Quick Links -->
+          <div>
+            <h4 class="text-sm font-semibold mb-3">Quick Links</h4>
+            <ul class="space-y-2 text-sm">
+              <li><a href="/fix" class="text-foreground/70 hover:text-foreground">Fix & Troubleshoot</a></li>
+              <li><a href="/maintain" class="text-foreground/70 hover:text-foreground">Maintain & Prevent</a></li>
+              <li><a href="/buy" class="text-foreground/70 hover:text-foreground">Buy & Compare</a></li>
+              <li><a href="/learn" class="text-foreground/70 hover:text-foreground">Learn</a></li>
+            </ul>
+          </div>
+
+          <!-- Popular Topics -->
+          <div>
+            <h4 class="text-sm font-semibold mb-3">Popular Topics</h4>
+            <ul class="space-y-2 text-sm">
+              <li><a href="/fix/engine" class="text-foreground/70 hover:text-foreground">Engine Problems</a></li>
+              <li><a href="/fix/brakes" class="text-foreground/70 hover:text-foreground">Brake Issues</a></li>
+              <li><a href="/maintain/oil-fluids" class="text-foreground/70 hover:text-foreground">Oil Changes</a></li>
+              <li><a href="/buy/obd2-scanners" class="text-foreground/70 hover:text-foreground">OBD2 Scanners</a></li>
+            </ul>
+          </div>
+
+          <!-- Legal -->
+          <div>
+            <h4 class="text-sm font-semibold mb-3">Legal</h4>
+            <ul class="space-y-2 text-sm">
+              <li><a href="/disclaimer" class="text-foreground/70 hover:text-foreground">Disclaimer</a></li>
+              <li><a href="/affiliate-disclosure" class="text-foreground/70 hover:text-foreground">Affiliate Disclosure</a></li>
+              <li><a href="/privacy-policy" class="text-foreground/70 hover:text-foreground">Privacy Policy</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="border-t border-foreground/10 mt-8 pt-6 text-center text-sm text-foreground/60">
+          <p>&copy; 2026 The Driveway Mechanic. All rights reserved.</p>
+          <p class="mt-1">Always prioritize safety. When in doubt, consult a professional mechanic.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

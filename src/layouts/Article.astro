@@ -1,0 +1,154 @@
+---
+import Layout from "./Layout.astro";
+import TimeCostSkill from "../components/mdx/TimeCostSkill.astro";
+import VehicleFitment from "../components/mdx/VehicleFitment.astro";
+
+export interface Props {
+  frontmatter: {
+    title: string;
+    excerpt?: string;
+    publishedAt?: Date;
+    updatedAt?: Date;
+    author?: string;
+    pillar: string;
+    hub?: string;
+    vehicles?: string[];
+    difficulty: string;
+    timeCostSkill?: {
+      time: string;
+      diyCost: string;
+      shopCost: string;
+      skill: "beginner" | "intermediate" | "advanced";
+      notes?: string;
+    };
+    seo?: {
+      title?: string;
+      description?: string;
+      canonicalUrl?: string;
+      noIndex?: boolean;
+    };
+  };
+}
+
+const { frontmatter } = Astro.props;
+
+const breadcrumbs = [
+  { label: "Home", href: "/" },
+  { label: frontmatter.pillar.charAt(0).toUpperCase() + frontmatter.pillar.slice(1), href: `/${frontmatter.pillar}` },
+];
+
+if (frontmatter.hub) {
+  breadcrumbs.push({
+    label: frontmatter.hub.charAt(0).toUpperCase() + frontmatter.hub.slice(1),
+    href: `/${frontmatter.pillar}/${frontmatter.hub}`
+  });
+}
+
+const formatDate = (date: Date) => {
+  return new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(date);
+};
+---
+
+<Layout 
+  title={frontmatter.seo?.title || frontmatter.title}
+  description={frontmatter.seo?.description || frontmatter.excerpt}
+  canonical={frontmatter.seo?.canonicalUrl}
+  noIndex={frontmatter.seo?.noIndex}
+>
+  <article class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Breadcrumbs -->
+    <nav class="mb-6" aria-label="Breadcrumb">
+      <ol class="flex items-center gap-2 text-sm text-foreground/60">
+        {breadcrumbs.map((crumb, index) => (
+          <li class="flex items-center gap-2">
+            {index > 0 && <span>/</span>}
+            <a href={crumb.href} class="hover:text-foreground">{crumb.label}</a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+
+    <!-- Article Header -->
+    <header class="mb-8">
+      <h1 class="text-4xl font-bold text-foreground mb-4">{frontmatter.title}</h1>
+      
+      {frontmatter.excerpt && (
+        <p class="text-lg text-foreground/70 mb-6">{frontmatter.excerpt}</p>
+      )}
+
+      <!-- Article Meta -->
+      <div class="flex flex-wrap items-center gap-4 text-sm text-foreground/60 mb-6">
+        {frontmatter.author && (
+          <div class="flex items-center gap-2">
+            <span>👤</span>
+            <span>{frontmatter.author}</span>
+          </div>
+        )}
+        
+        {frontmatter.publishedAt && (
+          <div class="flex items-center gap-2">
+            <span>📅</span>
+            <time datetime={frontmatter.publishedAt.toISOString()}>
+              {formatDate(frontmatter.publishedAt)}
+            </time>
+          </div>
+        )}
+
+        {frontmatter.updatedAt && (
+          <div class="flex items-center gap-2">
+            <span>🔄</span>
+            <span>Updated {formatDate(frontmatter.updatedAt)}</span>
+          </div>
+        )}
+
+        <div class="flex items-center gap-2">
+          <span>🎯</span>
+          <span class="capitalize">{frontmatter.difficulty}</span>
+        </div>
+      </div>
+
+      <!-- Vehicle Fitment -->
+      {frontmatter.vehicles && frontmatter.vehicles.length > 0 && (
+        <VehicleFitment vehicles={frontmatter.vehicles} />
+      )}
+
+      <!-- Time, Cost & Skill -->
+      {frontmatter.timeCostSkill && (
+        <TimeCostSkill {...frontmatter.timeCostSkill} />
+      )}
+    </header>
+
+    <!-- Article Content -->
+    <div class="prose prose-lg max-w-none">
+      <slot />
+    </div>
+
+    <!-- Article Footer -->
+    <footer class="mt-12 border-t border-foreground/10 pt-8">
+      <div class="rounded-xl bg-foreground/[.02] p-6">
+        <div class="flex items-start gap-3">
+          <span class="text-2xl">⚠️</span>
+          <div>
+            <h3 class="text-lg font-semibold text-foreground mb-2">Safety Disclaimer</h3>
+            <p class="text-sm text-foreground/70">
+              Working on vehicles can be dangerous. This guide is for informational purposes only. 
+              Always prioritize safety, use proper protective equipment, and consult a qualified 
+              professional if you're not comfortable with any procedure. The Driveway Mechanic 
+              is not responsible for any injuries or damage resulting from following these instructions.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 text-center">
+        <p class="text-sm text-foreground/60">
+          Found this helpful? Share it with a fellow DIY mechanic! 🔧
+        </p>
+      </div>
+    </footer>
+  </article>
+</Layout>

@@ -1,0 +1,245 @@
+---
+title: "Car Won't Start but Clicks: What to Check First"
+excerpt: "Your car clicks when you turn the key but won't start? This usually points to a dead or weak battery, bad connections, or a failing starter. Here's how to diagnose and fix it yourself."
+publishedAt: 2026-02-10
+author: "The Driveway Mechanic Team"
+pillar: "fix"
+hub: "electrical"
+category: "battery"
+articleType: "troubleshooting"
+vehicles: ["all"]
+difficulty: "beginner"
+timeCostSkill:
+  time: "15–30 min"
+  diyCost: "$0–$150"
+  shopCost: "$75–$300"
+  skill: "beginner"
+  notes: "Most fixes are simple and require basic tools"
+safetyLevel: "low"
+partsNeeded: ["jumper-cables", "battery-terminal-cleaner", "new-battery"]
+toolsNeeded: ["multimeter", "wrench-set", "wire-brush"]
+obdCodes: []
+topics: ["battery", "starter", "electrical", "troubleshooting"]
+seo:
+  description: "Car clicks but won't start? Learn how to diagnose dead battery, bad connections, or starter problems. Step-by-step DIY troubleshooting guide with costs."
+---
+
+import DiagnosticFlow from "../../components/mdx/DiagnosticFlow.astro"
+import SafetyCallout from "../../components/mdx/SafetyCallout.astro"
+import ToolsParts from "../../components/mdx/ToolsParts.astro"
+import Callout from "../../components/mdx/Callout.astro"
+import CostComparison from "../../components/mdx/CostComparison.astro"
+import AffiliateProduct from "../../components/mdx/AffiliateProduct.astro"
+
+When you turn the key and hear clicking but your car won't start, you're dealing with one of the most common automotive problems. The good news? **This is usually a simple fix you can handle yourself.**
+
+That clicking sound is your starter trying to engage but not getting enough power to turn the engine. In 90% of cases, it's either a dead battery, corroded connections, or a failing starter.
+
+## Quick Answer
+
+**Most likely causes:**
+1. **Dead or weak battery** (70% of cases)
+2. **Corroded battery terminals** (15% of cases)
+3. **Bad starter** (10% of cases)
+4. **Loose connections** (5% of cases)
+
+<SafetyCallout 
+  severity="warning"
+  bullets={[
+    "Always wear safety glasses when working around batteries",
+    "Remove jewelry to avoid short circuits",
+    "Never smoke or use open flames near batteries",
+    "Use proper jack stands if you need to go under the car"
+  ]}
+/>
+
+## Diagnostic Steps
+
+<DiagnosticFlow 
+  title="Find the Problem in Order"
+  intro="Check these in sequence — easiest and most common first:"
+  steps={[
+    {
+      title: "Check Battery Connections",
+      details: "Look at both battery terminals for white/green corrosion, loose clamps, or frayed wires.",
+      outcome: "Clean, tight connections with no visible corrosion",
+      nextIfPass: "Move to step 2",
+      nextIfFail: "Clean terminals with baking soda and water, tighten clamps",
+      safetyNote: "Disconnect negative terminal first, reconnect it last"
+    },
+    {
+      title: "Test Battery Voltage",
+      details: "Use a multimeter to check battery voltage. Should be 12.6V with engine off, 12.0V or higher when cranking.",
+      outcome: "Voltage reading above 12.4V",
+      nextIfPass: "Move to step 3",
+      nextIfFail: "Jump start or replace battery"
+    },
+    {
+      title: "Try Jump Starting",
+      details: "Connect jumper cables properly (positive to positive, negative to ground) and attempt to start.",
+      outcome: "Car starts immediately with jump",
+      nextIfPass: "Battery is dead — needs charging or replacement",
+      nextIfFail: "Likely starter problem — move to step 4"
+    },
+    {
+      title: "Check Starter Connections", 
+      details: "Locate starter (usually on engine block) and check for loose or corroded connections.",
+      outcome: "All connections tight and clean",
+      nextIfPass: "Starter motor likely failed",
+      nextIfFail: "Clean and tighten starter connections"
+    }
+  ]}
+  whenToCallPro="If all connections are good and jump starting doesn't work, the starter motor likely needs replacement. This requires lifting the car and working with heavy parts."
+/>
+
+## Tools & Parts You'll Need
+
+<ToolsParts 
+  tools={[
+    { name: "Multimeter", essential: true, notes: "For testing battery voltage" },
+    { name: "Wire brush or sandpaper", essential: true, notes: "Clean corroded terminals" },
+    { name: "Adjustable wrench", essential: true, notes: "Tighten battery clamps" },
+    { name: "Jumper cables or jump starter", essential: false, notes: "For testing and emergency starts" }
+  ]}
+  parts={[
+    { name: "Battery terminal cleaner", notes: "Baking soda and water works too" },
+    { name: "New battery", notes: "If testing shows battery is dead" },
+    { name: "Terminal protectant spray", notes: "Prevents future corrosion" }
+  ]}
+  notes="Most issues can be diagnosed with just a multimeter and basic hand tools."
+/>
+
+## Step-by-Step Solutions
+
+### 1. Clean Corroded Battery Terminals
+
+If you see white, blue, or green buildup on your battery terminals:
+
+1. **Disconnect the negative terminal first** (black cable)
+2. **Disconnect the positive terminal** (red cable)  
+3. **Mix baking soda and water** (1 tablespoon per cup)
+4. **Pour mixture over terminals** and let it foam for 30 seconds
+5. **Scrub with wire brush** until terminals are shiny
+6. **Rinse with clean water** and dry completely
+7. **Reconnect positive first, then negative**
+
+<Callout type="tip">
+  Apply terminal protectant spray or petroleum jelly to clean terminals to prevent future corrosion.
+</Callout>
+
+### 2. Jump Start Your Car
+
+If the battery is weak but connections are clean:
+
+1. **Position jump car** close enough for cables to reach both batteries
+2. **Turn off both vehicles** and engage parking brakes
+3. **Connect cables in this order:**
+   - Red to dead battery positive
+   - Red to good battery positive  
+   - Black to good battery negative
+   - Black to unpainted metal in dead car (ground point)
+4. **Start the good car** and let it run for 5 minutes
+5. **Try starting the dead car**
+6. **Remove cables in reverse order** once running
+
+### 3. Test and Replace Battery
+
+If jump starting works but the problem returns:
+
+<CostComparison 
+  title="Battery Replacement: DIY vs Shop"
+  diyCost="$100–$150"
+  shopCost="$200–$300"
+  diyTime="15 minutes"
+  shopTime="30 minutes + wait time"
+  diyDescription="Buy battery at auto parts store, install yourself"
+  shopDescription="Shop tests, purchases, and installs new battery"
+  breakdownDIY={[
+    { item: "New battery", cost: "$100–$150" },
+    { item: "Tools", cost: "Already own" }
+  ]}
+  breakdownShop={[
+    { item: "New battery", cost: "$120–$180" },
+    { item: "Labor", cost: "$80–$120" }
+  ]}
+/>
+
+**To replace the battery:**
+
+1. **Buy the correct battery** (check your owner's manual for group size)
+2. **Remove old battery** (negative first, then positive)
+3. **Clean battery tray** if corroded
+4. **Install new battery** (positive first, then negative)
+5. **Apply terminal protectant**
+
+<Callout type="info">
+  Most auto parts stores will test your battery for free and dispose of your old one.
+</Callout>
+
+## When the Starter is the Problem
+
+If jump starting doesn't work and connections are clean, you likely have a bad starter. Signs include:
+
+- Single loud click when turning key
+- Nothing happens (no click at all)
+- Grinding noise when trying to start
+
+**Starter replacement typically costs:**
+- **DIY:** $150–$300 (parts only)
+- **Shop:** $400–$800 (parts + labor)
+
+This job requires lifting the car and working with heavy parts. Unless you're experienced, this is often worth having a shop handle.
+
+## Prevention Tips
+
+<Callout type="tip" title="Keep Your Battery Healthy">
+- **Test battery voltage monthly** during cold weather
+- **Clean terminals every 6 months** or when you see corrosion
+- **Don't leave lights or accessories on** when the engine is off
+- **Drive your car regularly** — batteries die faster when sitting unused
+- **Replace every 3–5 years** depending on climate and usage
+</Callout>
+
+## Related Problems
+
+If your car has other symptoms along with the clicking:
+- **Lights are dim:** Definitely a battery issue
+- **Radio/electronics don't work:** Battery is completely dead
+- **Car cranks slowly then clicks:** Weak battery or bad connections
+- **No click at all:** Could be ignition switch, neutral safety switch, or completely dead battery
+
+## Recommended Products
+
+<AffiliateProduct 
+  name="NOCO Genius G3500 Battery Charger"
+  image="/images/products/noco-g3500.jpg"
+  price="$59.95"
+  rating={5}
+  description="Automatic smart charger that can recover dead batteries and maintain charge. Works on 6V and 12V batteries."
+  pros={["Recovers completely dead batteries", "Automatic shutoff prevents overcharging", "Compact and portable"]}
+  cons={["Takes several hours to fully charge dead battery"]}
+  tier="oem"
+  affiliateUrl="https://amazon.com/dp/B004LWLMHC"
+  bestFor="DIYers who want to revive dead batteries instead of replacing them"
+/>
+
+<AffiliateProduct 
+  name="Optima RedTop Starting Battery"
+  image="/images/products/optima-redtop.jpg"
+  price="$199.99"
+  originalPrice="$249.99"
+  rating={4}
+  description="High-performance AGM battery designed for starting reliability. Vibration resistant and longer lasting than standard batteries."
+  pros={["Excellent cold-weather performance", "Vibration resistant", "Longer lifespan than standard batteries"]}
+  cons={["More expensive upfront", "Requires compatible charger for best results"]}
+  tier="performance"
+  affiliateUrl="https://amazon.com/dp/B000LRMM9S"
+  bestFor="Drivers who want maximum reliability and don't mind paying extra"
+  fitment={["Universal fitment - check your group size"]}
+/>
+
+---
+
+**Bottom line:** A clicking car that won't start is usually a simple electrical problem. Start with the basics — clean terminals, test the battery, try a jump start. In most cases, you'll be back on the road in under 30 minutes with minimal cost.
+
+Remember: **When in doubt, prioritize safety over savings.** If you're not comfortable with any step, there's no shame in calling a professional.

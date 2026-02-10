@@ -1,0 +1,125 @@
+---
+interface Props {
+  diyCost: string;
+  shopCost: string;
+  diyTime: string;
+  shopTime?: string;
+  diyDescription?: string;
+  shopDescription?: string;
+  title?: string;
+  breakdownDIY?: { item: string; cost: string }[];
+  breakdownShop?: { item: string; cost: string }[];
+}
+
+const {
+  diyCost,
+  shopCost,
+  diyTime,
+  shopTime = "Same day",
+  diyDescription = "Do it yourself in your driveway",
+  shopDescription = "Professional service at a shop",
+  title = "Cost Comparison: DIY vs Shop",
+  breakdownDIY = [],
+  breakdownShop = [],
+} = Astro.props;
+
+// Extract numeric values for calculations
+const extractCost = (costStr: string) => {
+  const match = costStr.match(/\$(\d+)/);
+  return match ? parseInt(match[1]) : 0;
+};
+
+const diyAmount = extractCost(diyCost);
+const shopAmount = extractCost(shopCost);
+const savings = shopAmount > diyAmount ? shopAmount - diyAmount : 0;
+const savingsPercent = shopAmount > 0 ? Math.round((savings / shopAmount) * 100) : 0;
+---
+
+<div class="not-prose my-8">
+  <h4 class="mb-4 text-lg font-semibold text-foreground">{title}</h4>
+  
+  <div class="grid gap-4 md:grid-cols-2">
+    <!-- DIY Option -->
+    <div class="rounded-2xl border border-emerald-500/20 bg-gradient-to-br from-emerald-500/5 to-transparent p-6">
+      <div class="mb-4">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-2xl">🔧</span>
+          <h5 class="text-lg font-semibold text-foreground">DIY Option</h5>
+        </div>
+        <p class="text-sm text-foreground/70">{diyDescription}</p>
+      </div>
+
+      <div class="space-y-3">
+        <div>
+          <div class="text-xs font-medium text-foreground/60 uppercase tracking-wide">Total Cost</div>
+          <div class="text-2xl font-bold text-emerald-600 dark:text-emerald-400">{diyCost}</div>
+        </div>
+        
+        <div>
+          <div class="text-xs font-medium text-foreground/60 uppercase tracking-wide">Time Required</div>
+          <div class="text-sm font-semibold text-foreground">{diyTime}</div>
+        </div>
+
+        {breakdownDIY.length > 0 && (
+          <div>
+            <div class="text-xs font-medium text-foreground/60 uppercase tracking-wide mb-2">Cost Breakdown</div>
+            <div class="space-y-1">
+              {breakdownDIY.map(({ item, cost }) => (
+                <div class="flex justify-between text-sm">
+                  <span class="text-foreground/80">{item}</span>
+                  <span class="font-medium text-foreground">{cost}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+
+    <!-- Shop Option -->
+    <div class="rounded-2xl border border-blue-500/20 bg-gradient-to-br from-blue-500/5 to-transparent p-6">
+      <div class="mb-4">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-2xl">🏪</span>
+          <h5 class="text-lg font-semibold text-foreground">Shop Service</h5>
+        </div>
+        <p class="text-sm text-foreground/70">{shopDescription}</p>
+      </div>
+
+      <div class="space-y-3">
+        <div>
+          <div class="text-xs font-medium text-foreground/60 uppercase tracking-wide">Total Cost</div>
+          <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">{shopCost}</div>
+        </div>
+        
+        <div>
+          <div class="text-xs font-medium text-foreground/60 uppercase tracking-wide">Time Required</div>
+          <div class="text-sm font-semibold text-foreground">{shopTime}</div>
+        </div>
+
+        {breakdownShop.length > 0 && (
+          <div>
+            <div class="text-xs font-medium text-foreground/60 uppercase tracking-wide mb-2">Cost Breakdown</div>
+            <div class="space-y-1">
+              {breakdownShop.map(({ item, cost }) => (
+                <div class="flex justify-between text-sm">
+                  <span class="text-foreground/80">{item}</span>
+                  <span class="font-medium text-foreground">{cost}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+
+  {savings > 0 && (
+    <div class="mt-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-center">
+      <div class="text-sm font-medium text-foreground/70">You Save by Going DIY</div>
+      <div class="text-2xl font-bold text-emerald-600 dark:text-emerald-400">
+        ${savings} ({savingsPercent}% savings)
+      </div>
+    </div>
+  )}
+</div>

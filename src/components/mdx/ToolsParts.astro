@@ -1,0 +1,117 @@
+---
+interface Tool {
+  name: string;
+  essential: boolean;
+  notes?: string;
+  affiliateUrl?: string;
+}
+
+interface Part {
+  name: string;
+  partNumber?: string;
+  notes?: string;
+  affiliateUrl?: string;
+}
+
+interface Props {
+  tools?: Tool[];
+  parts?: Part[];
+  notes?: string;
+}
+
+const { tools = [], parts = [], notes } = Astro.props;
+---
+
+<div class="not-prose my-8 rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
+  <div class="border-b border-primary/20 px-6 py-4">
+    <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-primary-600 dark:text-primary-400">
+      <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+      </svg>
+      Tools & Parts Needed
+    </div>
+  </div>
+
+  <div class="px-6 py-5">
+    {tools.length > 0 && (
+      <div class="mb-6">
+        <h4 class="mb-3 flex items-center gap-2 text-sm font-semibold text-foreground">
+          <span class="text-lg">🔧</span>
+          Tools Required
+        </h4>
+        <div class="space-y-2">
+          {tools.map((tool) => (
+            <div class="flex items-start justify-between gap-3 rounded-lg bg-foreground/[.03] px-3 py-2">
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center gap-2">
+                  <span class={`text-sm font-medium ${tool.essential ? 'text-foreground' : 'text-foreground/70'}`}>
+                    {tool.name}
+                  </span>
+                  {tool.essential && (
+                    <span class="rounded-full bg-accent/20 px-2 py-0.5 text-xs font-medium text-accent">
+                      Essential
+                    </span>
+                  )}
+                </div>
+                {tool.notes && (
+                  <p class="mt-1 text-xs text-foreground/60">{tool.notes}</p>
+                )}
+              </div>
+              {tool.affiliateUrl && (
+                <a 
+                  href={tool.affiliateUrl} 
+                  class="shrink-0 text-xs text-accent hover:text-accent-600"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Buy →
+                </a>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+    {parts.length > 0 && (
+      <div class="mb-4">
+        <h4 class="mb-3 flex items-center gap-2 text-sm font-semibold text-foreground">
+          <span class="text-lg">🔩</span>
+          Parts & Materials
+        </h4>
+        <div class="space-y-2">
+          {parts.map((part) => (
+            <div class="flex items-start justify-between gap-3 rounded-lg bg-foreground/[.03] px-3 py-2">
+              <div class="min-w-0 flex-1">
+                <span class="text-sm font-medium text-foreground">{part.name}</span>
+                {part.partNumber && (
+                  <div class="mt-1 text-xs text-foreground/50">Part #: {part.partNumber}</div>
+                )}
+                {part.notes && (
+                  <p class="mt-1 text-xs text-foreground/60">{part.notes}</p>
+                )}
+              </div>
+              {part.affiliateUrl && (
+                <a 
+                  href={part.affiliateUrl} 
+                  class="shrink-0 text-xs text-accent hover:text-accent-600"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Buy →
+                </a>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+    {notes && (
+      <div class="rounded-lg bg-blue-500/10 px-3 py-2 text-xs text-foreground/80">
+        <span class="font-medium">💡 Note: </span>{notes}
+      </div>
+    )}
+  </div>
+</div>
