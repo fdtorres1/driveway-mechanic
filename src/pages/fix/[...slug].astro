@@ -1,14 +1,16 @@
 ---
 import { getCollection } from "astro:content";
 import type { GetStaticPaths } from "astro";
-import Layout from "../../layouts/Layout.astro";
 import Article from "../../layouts/Article.astro";
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  const FIX_HUBS = ["electrical", "engine", "brakes", "ac-heating", "suspension", "noises-smells", "exhaust", "transmission"];
   const articles = await getCollection("articles", ({ data }) => {
-    return data.pillar === "fix" && !data.draft;
+    const inFixHub = data.hubs.some((h: string) => FIX_HUBS.includes(h));
+    const isTroubleshooting = data.articleType === "troubleshooting";
+    return (inFixHub || isTroubleshooting) && !data.draft;
   });
-  
+
   return articles.map((entry) => ({
     params: { slug: entry.id },
     props: { entry },

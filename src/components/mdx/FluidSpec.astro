@@ -1,0 +1,61 @@
+---
+interface Spec {
+  fluid: string;
+  spec: string;
+  capacity?: string;
+  note?: string;
+}
+
+interface Props {
+  specs: Spec[];
+  title?: string;
+}
+
+const { specs, title = "Fluid Specifications" } = Astro.props;
+---
+
+<div class="not-prose my-8 rounded-2xl border border-sky-500/20 bg-gradient-to-br from-sky-500/5 to-transparent">
+  <div class="border-b border-sky-500/20 px-6 py-4">
+    <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-sky-600 dark:text-sky-400">
+      <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+      </svg>
+      {title}
+    </div>
+  </div>
+
+  <div class="divide-y divide-sky-500/10">
+    {specs.map((spec) => (
+      <div class="px-6 py-4">
+        <div class="flex flex-wrap items-start justify-between gap-4">
+          <div class="min-w-0 flex-1">
+            <h4 class="font-semibold text-foreground">{spec.fluid}</h4>
+            <div class="mt-1.5 flex flex-wrap items-center gap-2">
+              <span class="inline-flex items-center rounded-lg bg-sky-500/10 px-3 py-1 text-sm font-bold text-sky-700 dark:text-sky-300">
+                {spec.spec}
+              </span>
+              {spec.capacity && (
+                <span class="inline-flex items-center rounded-lg bg-foreground/5 px-3 py-1 text-sm font-medium text-foreground/70">
+                  📏 {spec.capacity}
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {spec.note && (
+          <div class="mt-3 flex items-start gap-2 rounded-lg border border-amber-500/20 bg-amber-500/10 px-3 py-2 text-sm">
+            <span class="text-amber-600 dark:text-amber-400">⚠️</span>
+            <span class="text-foreground/85">{spec.note}</span>
+          </div>
+        )}
+      </div>
+    ))}
+  </div>
+
+  <div class="border-t border-sky-500/10 px-6 py-3">
+    <p class="text-xs text-foreground/50">
+      ⚠️ Always verify specifications against your owner's manual. Using the wrong fluid can cause expensive damage.
+    </p>
+  </div>
+</div>

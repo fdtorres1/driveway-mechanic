@@ -1,14 +1,16 @@
 ---
 import { getCollection } from "astro:content";
 import type { GetStaticPaths } from "astro";
-import Layout from "../../layouts/Layout.astro";
 import Article from "../../layouts/Article.astro";
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  const MAINTAIN_HUBS = ["oil-fluids", "tires", "filters", "belts-hoses", "coolant", "maintenance-schedules"];
   const articles = await getCollection("articles", ({ data }) => {
-    return data.pillar === "maintain" && !data.draft;
+    const inMaintainHub = data.hubs.some((h: string) => MAINTAIN_HUBS.includes(h));
+    const isHowTo = data.articleType === "how-to" || data.articleType === "maintenance-schedule";
+    return (inMaintainHub || isHowTo) && !data.draft;
   });
-  
+
   return articles.map((entry) => ({
     params: { slug: entry.id },
     props: { entry },

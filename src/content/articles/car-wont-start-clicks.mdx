@@ -3,8 +3,7 @@ title: "Car Won't Start but Clicks: What to Check First"
 excerpt: "Your car clicks when you turn the key but won't start? This usually points to a dead or weak battery, bad connections, or a failing starter. Here's how to diagnose and fix it yourself."
 publishedAt: 2026-02-10
 author: "The Driveway Mechanic Team"
-pillar: "fix"
-hub: "electrical"
+hubs: ["electrical"]
 category: "battery"
 articleType: "troubleshooting"
 vehicles: ["all"]
@@ -24,12 +23,12 @@ seo:
   description: "Car clicks but won't start? Learn how to diagnose dead battery, bad connections, or starter problems. Step-by-step DIY troubleshooting guide with costs."
 ---
 
-import DiagnosticFlow from "../../components/mdx/DiagnosticFlow.astro"
-import SafetyCallout from "../../components/mdx/SafetyCallout.astro"
-import ToolsParts from "../../components/mdx/ToolsParts.astro"
-import Callout from "../../components/mdx/Callout.astro"
-import CostComparison from "../../components/mdx/CostComparison.astro"
-import AffiliateProduct from "../../components/mdx/AffiliateProduct.astro"
+import FixFlow from "@/components/mdx/FixFlow.astro"
+import SafetyCallout from "@/components/mdx/SafetyCallout.astro"
+import ToolsParts from "@/components/mdx/ToolsParts.astro"
+import Callout from "@/components/mdx/Callout.astro"
+import CostComparison from "@/components/mdx/CostComparison.astro"
+import AffiliateProduct from "@/components/mdx/AffiliateProduct.astro"
 
 When you turn the key and hear clicking but your car won't start, you're dealing with one of the most common automotive problems. The good news? **This is usually a simple fix you can handle yourself.**
 
@@ -55,7 +54,7 @@ That clicking sound is your starter trying to engage but not getting enough powe
 
 ## Diagnostic Steps
 
-<DiagnosticFlow 
+<FixFlow 
   title="Find the Problem in Order"
   intro="Check these in sequence — easiest and most common first:"
   steps={[
@@ -64,8 +63,7 @@ That clicking sound is your starter trying to engage but not getting enough powe
       details: "Look at both battery terminals for white/green corrosion, loose clamps, or frayed wires.",
       outcome: "Clean, tight connections with no visible corrosion",
       nextIfPass: "Move to step 2",
-      nextIfFail: "Clean terminals with baking soda and water, tighten clamps",
-      safetyNote: "Disconnect negative terminal first, reconnect it last"
+      nextIfFail: "Clean terminals with baking soda and water, tighten clamps"
     },
     {
       title: "Test Battery Voltage",
@@ -95,18 +93,14 @@ That clicking sound is your starter trying to engage but not getting enough powe
 ## Tools & Parts You'll Need
 
 <ToolsParts 
-  tools={[
-    { name: "Multimeter", essential: true, notes: "For testing battery voltage" },
-    { name: "Wire brush or sandpaper", essential: true, notes: "Clean corroded terminals" },
-    { name: "Adjustable wrench", essential: true, notes: "Tighten battery clamps" },
-    { name: "Jumper cables or jump starter", essential: false, notes: "For testing and emergency starts" }
+  mustHave={[
+    { name: "Multimeter", description: "For testing battery voltage" },
+    { name: "Wire brush or sandpaper", description: "Clean corroded terminals" },
+    { name: "Adjustable wrench", description: "Tighten battery clamps" }
   ]}
-  parts={[
-    { name: "Battery terminal cleaner", notes: "Baking soda and water works too" },
-    { name: "New battery", notes: "If testing shows battery is dead" },
-    { name: "Terminal protectant spray", notes: "Prevents future corrosion" }
+  niceToHave={[
+    { name: "Jumper cables or jump starter", description: "For testing and emergency starts" }
   ]}
-  notes="Most issues can be diagnosed with just a multimeter and basic hand tools."
 />
 
 ## Step-by-Step Solutions
@@ -123,7 +117,7 @@ If you see white, blue, or green buildup on your battery terminals:
 6. **Rinse with clean water** and dry completely
 7. **Reconnect positive first, then negative**
 
-<Callout type="tip">
+<Callout tone="tip">
   Apply terminal protectant spray or petroleum jelly to clean terminals to prevent future corrosion.
 </Callout>
 
@@ -172,7 +166,7 @@ If jump starting works but the problem returns:
 4. **Install new battery** (positive first, then negative)
 5. **Apply terminal protectant**
 
-<Callout type="info">
+<Callout tone="note">
   Most auto parts stores will test your battery for free and dispose of your old one.
 </Callout>
 
@@ -192,12 +186,8 @@ This job requires lifting the car and working with heavy parts. Unless you're ex
 
 ## Prevention Tips
 
-<Callout type="tip" title="Keep Your Battery Healthy">
-- **Test battery voltage monthly** during cold weather
-- **Clean terminals every 6 months** or when you see corrosion
-- **Don't leave lights or accessories on** when the engine is off
-- **Drive your car regularly** — batteries die faster when sitting unused
-- **Replace every 3–5 years** depending on climate and usage
+<Callout tone="tip">
+  Keep your battery healthy: test voltage monthly during cold weather, clean terminals every 6 months, don't leave lights on when the engine is off, drive regularly, and replace every 3–5 years depending on climate and usage.
 </Callout>
 
 ## Related Problems
@@ -212,30 +202,20 @@ If your car has other symptoms along with the clicking:
 
 <AffiliateProduct 
   name="NOCO Genius G3500 Battery Charger"
-  image="/images/products/noco-g3500.jpg"
+  url="https://amazon.com/dp/B004LWLMHC"
+  merchant="Amazon"
   price="$59.95"
-  rating={5}
-  description="Automatic smart charger that can recover dead batteries and maintain charge. Works on 6V and 12V batteries."
   pros={["Recovers completely dead batteries", "Automatic shutoff prevents overcharging", "Compact and portable"]}
   cons={["Takes several hours to fully charge dead battery"]}
-  tier="oem"
-  affiliateUrl="https://amazon.com/dp/B004LWLMHC"
-  bestFor="DIYers who want to revive dead batteries instead of replacing them"
 />
 
 <AffiliateProduct 
   name="Optima RedTop Starting Battery"
-  image="/images/products/optima-redtop.jpg"
+  url="https://amazon.com/dp/B000LRMM9S"
+  merchant="Amazon"
   price="$199.99"
-  originalPrice="$249.99"
-  rating={4}
-  description="High-performance AGM battery designed for starting reliability. Vibration resistant and longer lasting than standard batteries."
   pros={["Excellent cold-weather performance", "Vibration resistant", "Longer lifespan than standard batteries"]}
   cons={["More expensive upfront", "Requires compatible charger for best results"]}
-  tier="performance"
-  affiliateUrl="https://amazon.com/dp/B000LRMM9S"
-  bestFor="Drivers who want maximum reliability and don't mind paying extra"
-  fitment={["Universal fitment - check your group size"]}
 />
 
 ---

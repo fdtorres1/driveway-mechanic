@@ -41,7 +41,7 @@ const styles = isDanger
 
       <div class="min-w-0 flex-1">
         <div class={`text-xs font-bold uppercase tracking-wider ${styles.label}`}>
-          {isDanger ? "🛑 STOP - SAFETY CRITICAL" : "⚠️ SAFETY WARNING"}
+          {isDanger ? "🛑 STOP HERE" : "⚠️ WARNING"}
         </div>
 
         {title && <h3 class="mt-1 text-lg font-bold text-foreground">{title}</h3>}
@@ -63,7 +63,7 @@ const styles = isDanger
 
         {callProMessage && (
           <div class="mt-4 flex items-center gap-2 rounded-lg bg-foreground/10 px-3 py-2 text-sm">
-            <span>🔧</span>
+            <span>👷</span>
             <span class="font-medium text-foreground/80">{callProMessage}</span>
           </div>
         )}

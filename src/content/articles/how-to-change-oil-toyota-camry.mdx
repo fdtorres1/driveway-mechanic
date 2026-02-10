@@ -3,8 +3,7 @@ title: "How to Change Oil on a 2018-2023 Toyota Camry (2.5L Engine)"
 excerpt: "Complete step-by-step guide to changing oil and filter on a Toyota Camry 2.5L engine. Save $40+ and learn to maintain your car yourself with this detailed DIY tutorial."
 publishedAt: 2026-02-10
 author: "The Driveway Mechanic Team"
-pillar: "maintain"
-hub: "oil-fluids"
+hubs: ["oil-fluids"]
 category: "oil-change"
 articleType: "how-to"
 vehicles: ["toyota-camry-2018-2023"]
@@ -24,14 +23,13 @@ seo:
   description: "Learn how to change oil and filter on 2018-2023 Toyota Camry 2.5L. Step-by-step DIY guide with tools, parts, and safety tips. Save $40+ per oil change."
 ---
 
-import DiagnosticFlow from "../../components/mdx/DiagnosticFlow.astro"
-import SafetyCallout from "../../components/mdx/SafetyCallout.astro"
-import ToolsParts from "../../components/mdx/ToolsParts.astro"
-import Callout from "../../components/mdx/Callout.astro"
-import CostComparison from "../../components/mdx/CostComparison.astro"
-import AffiliateProduct from "../../components/mdx/AffiliateProduct.astro"
-import GoChecklist from "../../components/mdx/GoChecklist.astro"
-import VehicleFitment from "../../components/mdx/VehicleFitment.astro"
+import SafetyCallout from "@/components/mdx/SafetyCallout.astro"
+import ToolsParts from "@/components/mdx/ToolsParts.astro"
+import Callout from "@/components/mdx/Callout.astro"
+import CostComparison from "@/components/mdx/CostComparison.astro"
+import AffiliateProduct from "@/components/mdx/AffiliateProduct.astro"
+import GoChecklist from "@/components/mdx/GoChecklist.astro"
+import VehicleFitment from "@/components/mdx/VehicleFitment.astro"
 
 Changing your own oil is one of the best ways to start maintaining your Toyota Camry yourself. It's straightforward, saves money, and helps you get familiar with your car. **This guide covers the 2018-2023 Camry with the 2.5L 4-cylinder engine** — the most common configuration.
 
@@ -66,34 +64,31 @@ Changing your own oil is one of the best ways to start maintaining your Toyota C
 ## What You'll Need
 
 <ToolsParts 
-  tools={[
-    { name: "Floor jack", essential: true, notes: "Must lift front of car safely" },
-    { name: "2 jack stands", essential: true, notes: "NEVER work under car without stands" },
-    { name: "17mm socket or box wrench", essential: true, notes: "For drain plug" },
-    { name: "Oil filter wrench", essential: true, notes: "64mm socket or cup-style wrench" },
-    { name: "Drain pan (6+ quarts)", essential: true, notes: "Must hold all old oil" },
-    { name: "Funnel", essential: true, notes: "For adding new oil without spills" },
-    { name: "Disposable gloves", essential: false, notes: "Keep hands clean" }
+  mustHave={[
+    { name: "Floor jack", description: "Must lift front of car safely" },
+    { name: "2 jack stands", description: "NEVER work under car without stands" },
+    { name: "17mm socket or box wrench", description: "For drain plug" },
+    { name: "Oil filter wrench", description: "64mm socket or cup-style wrench" },
+    { name: "Drain pan (6+ quarts)", description: "Must hold all old oil" },
+    { name: "Funnel", description: "For adding new oil without spills" }
   ]}
-  parts={[
-    { name: "5 quarts 0W-20 synthetic oil", partNumber: "Various brands", notes: "Toyota recommends 0W-20 for this engine" },
-    { name: "Oil filter", partNumber: "90915-YZZF1 (OEM)", notes: "OEM Toyota filter or equivalent" },
-    { name: "Drain plug gasket", partNumber: "90430-12031", notes: "Replace every oil change" }
+  niceToHave={[
+    { name: "Disposable gloves", description: "Keep hands clean" }
   ]}
-  notes="Buy oil and filter at auto parts store to save money. They'll often dispose of old oil for free."
 />
 
 ## Pre-Work Safety Checklist
 
-<GoChecklist 
+<GoChecklist
   title="Before You Start"
+  timeEstimate="5 minutes"
   items={[
-    { label: "Engine is warm but not hot", detail: "Run engine 5 minutes, then let cool 10 minutes", priority: "must" },
-    { label: "Car on level ground", detail: "Driveway or garage, not on a slope", priority: "must" },
-    { label: "Parking brake set", detail: "Emergency brake engaged", priority: "must" },
-    { label: "Jack and stands inspected", detail: "No damage, proper weight rating", priority: "must" },
-    { label: "All tools ready", detail: "Tools organized and within reach", priority: "should" },
-    { label: "Old oil disposal plan", detail: "Auto parts store or quick lube takes used oil free", priority: "should" }
+    { label: "Engine is warm but not hot", notes: "Run engine 5 minutes, then let cool 10 minutes", category: "general" },
+    { label: "Car on level ground", notes: "Driveway or garage, not on a slope", category: "general" },
+    { label: "Parking brake set", category: "general" },
+    { label: "Jack and stands inspected", notes: "No damage, proper weight rating", category: "tools" },
+    { label: "All tools ready", notes: "Tools organized and within reach", category: "tools" },
+    { label: "Old oil disposal plan", notes: "Auto parts store or quick lube takes used oil free", category: "general" }
   ]}
 />
 
@@ -130,7 +125,7 @@ The **drain plug is on the passenger side** of the oil pan, accessible from the 
 5. **Lower car onto stands** and test stability
 6. **Remove front-right wheel** for easier access
 
-<Callout type="warning">
+<Callout tone="warning">
   **Lift points for 2018-2023 Camry:** Look for reinforced notches on the frame rails behind each wheel. Never jack on the oil pan, suspension arms, or body panels.
 </Callout>
 
@@ -150,7 +145,7 @@ Both are accessible from this position. The drain plug may have a plastic splash
 3. **Let oil drain completely** (15-20 minutes)
 4. **Clean drain plug** and inspect the gasket
 
-<Callout type="tip">
+<Callout tone="tip">
   **Pro tip:** The oil will initially shoot out, then slow to a drip. Start the drain pan to one side, then move it directly under the plug as flow slows.
 </Callout>
 
@@ -164,7 +159,7 @@ While oil is draining:
 4. **Apply thin coat of new oil** to new filter's rubber gasket
 5. **Install new filter** hand-tight plus 3/4 turn (do NOT over-tighten)
 
-<Callout type="warning">
+<Callout tone="warning">
   The old filter will spill oil when removed. Have your drain pan ready and expect some mess.
 </Callout>
 
@@ -191,7 +186,7 @@ While oil is draining:
 5. **Check oil level** with dipstick (should be between MIN and MAX)
 6. **Add more if needed** (don't overfill)
 
-<Callout type="info">
+<Callout tone="note">
   **Capacity:** 2018-2023 Camry 2.5L holds 4.8 quarts total, but start with 4.5 quarts since some old oil remains in the engine.
 </Callout>
 
@@ -207,31 +202,20 @@ While oil is draining:
 
 <AffiliateProduct 
   name="Mobil 1 Advanced Fuel Economy 0W-20"
-  image="/images/products/mobil1-0w20.jpg"
+  url="https://amazon.com/dp/B00L6QDWDY"
+  merchant="Amazon"
   price="$28.99"
-  rating={5}
-  description="Full synthetic motor oil specifically formulated for modern Toyota engines. Provides excellent fuel economy and engine protection."
   pros={["Excellent cold-weather flow", "Extends drain intervals", "Improved fuel economy"]}
   cons={["Slightly more expensive than conventional oil"]}
-  tier="oem"
-  affiliateUrl="https://amazon.com/dp/B00L6QDWDY"
-  bestFor="Daily drivers who want maximum engine protection"
-  fitment={["All Toyota vehicles requiring 0W-20"]}
 />
 
 <AffiliateProduct 
   name="Genuine Toyota Oil Filter (90915-YZZF1)"
-  image="/images/products/toyota-oil-filter.jpg"
+  url="https://amazon.com/dp/B07QRKM8HX"
+  merchant="Amazon"
   price="$11.99"
-  rating={5}
-  description="OEM oil filter designed specifically for Toyota 2.5L engines. Exact fit and filtration specifications."
   pros={["Perfect fit guaranteed", "OEM quality and filtration", "Proven reliability"]}
   cons={["Costs more than aftermarket options"]}
-  tier="oem"
-  partNumber="90915-YZZF1"
-  affiliateUrl="https://amazon.com/dp/B07QRKM8HX"
-  bestFor="Owners who want OEM quality and perfect fit"
-  fitment={["2018-2023 Toyota Camry 2.5L", "2019-2023 Toyota RAV4 2.5L"]}
 />
 
 ## Maintenance Schedule
@@ -247,7 +231,7 @@ While oil is draining:
 - Dusty conditions
 - Towing
 
-<Callout type="tip" title="Track Your Changes">
+<Callout tone="tip">
   Keep a log of oil changes with mileage and date. This helps with warranty coverage and resale value.
 </Callout>
 

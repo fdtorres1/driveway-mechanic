@@ -1,109 +1,121 @@
 ---
+/**
+ * GoChecklist Component
+ * 
+ * A compact, printable checklist for readiness items (go-bags, evacuation, etc.)
+ * 
+ * Usage in MDX:
+ * <GoChecklist
+ *   title="Family Go-Bag Checklist"
+ *   timeEstimate="30 minutes to pack"
+ *   items={[
+ *     { label: "Water (1 gallon per person per day)", category: "water" },
+ *     { label: "Flashlight + extra batteries", category: "power" }
+ *   ]}
+ * />
+ */
+
 interface ChecklistItem {
   label: string;
-  detail?: string;
-  priority?: "must" | "should" | "nice";
+  category?: string;
+  notes?: string;
 }
 
 interface Props {
-  title?: string;
-  intro?: string;
+  title: string;
+  timeEstimate?: string;
   items: ChecklistItem[];
-  safetyFirst?: boolean;
+  printable?: boolean;
 }
 
 const { 
-  title = "Pre-Work Checklist", 
-  intro, 
-  items, 
-  safetyFirst = true 
+  title, 
+  timeEstimate,
+  items = [],
+  printable = true
 } = Astro.props;
 
-const priorityStyles = {
-  must: {
-    bg: "bg-red-500/10",
-    border: "border-red-500/30",
-    text: "text-red-700 dark:text-red-400",
-    label: "Required",
-  },
-  should: {
-    bg: "bg-amber-500/10",
-    border: "border-amber-500/30",
-    text: "text-amber-700 dark:text-amber-400",
-    label: "Recommended",
-  },
-  nice: {
-    bg: "bg-blue-500/10",
-    border: "border-blue-500/30",
-    text: "text-blue-700 dark:text-blue-400",
-    label: "Optional",
-  },
+// Group items by category
+const grouped = items.reduce((acc, item) => {
+  const cat = item.category || "general";
+  if (!acc[cat]) acc[cat] = [];
+  acc[cat].push(item);
+  return acc;
+}, {} as Record<string, ChecklistItem[]>);
+
+const categoryLabels: Record<string, { label: string; icon: string }> = {
+  water: { label: "Water & Food", icon: "💧" },
+  power: { label: "Power & Light", icon: "🔦" },
+  documents: { label: "Documents", icon: "📄" },
+  clothing: { label: "Clothing", icon: "👕" },
+  medical: { label: "Medical & First Aid", icon: "🩹" },
+  pets: { label: "Pets", icon: "🐾" },
+  kids: { label: "Kids", icon: "👶" },
+  tools: { label: "Tools & Supplies", icon: "🔧" },
+  communication: { label: "Communication", icon: "📱" },
+  general: { label: "General", icon: "📦" },
 };
 ---
 
-<div class="not-prose my-8 rounded-2xl border border-emerald-500/20 bg-gradient-to-br from-emerald-500/5 to-transparent">
-  <div class="border-b border-emerald-500/20 px-6 py-4">
-    <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-emerald-600 dark:text-emerald-400">
-      <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-      </svg>
-      {title}
+<div class="not-prose my-8 rounded-xl border border-foreground/10 overflow-hidden print:border-black">
+  <div class="bg-foreground/[.02] px-5 py-4 border-b border-foreground/10 print:bg-white">
+    <div class="flex items-center justify-between">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-lg">✅</span>
+          <span class="text-xs font-semibold uppercase tracking-wide text-foreground/60">
+            Readiness Checklist
+          </span>
+        </div>
+        <h3 class="text-lg font-semibold mt-1">{title}</h3>
+        {timeEstimate && (
+          <p class="text-sm text-foreground/60 mt-1">⏱️ {timeEstimate}</p>
+        )}
+      </div>
+      {printable && (
+        <button 
+          onclick="window.print()"
+          class="text-sm px-3 py-1.5 rounded-lg border border-foreground/10 hover:bg-foreground/5 transition-colors print:hidden"
+        >
+          🖨️ Print
+        </button>
+      )}
     </div>
-    {intro && <p class="mt-2 text-sm text-foreground/70">{intro}</p>}
   </div>
 
-  <div class="p-6">
-    {safetyFirst && (
-      <div class="mb-4 rounded-lg border border-red-500/20 bg-red-500/10 p-3">
-        <div class="flex items-start gap-2">
-          <span class="text-red-500">⚠️</span>
-          <div class="text-sm">
-            <div class="font-semibold text-red-700 dark:text-red-400">Safety First</div>
-            <div class="text-red-600 dark:text-red-300 mt-1">
-              Always prioritize safety. If you're not comfortable with any step, consult a professional.
-            </div>
-          </div>
-        </div>
-      </div>
-    )}
-
-    <div class="space-y-3">
-      {items.map((item, index) => {
-        const priority = item.priority || "should";
-        const style = priorityStyles[priority];
-        
-        return (
-          <div class="flex items-start gap-3 group">
-            <div class="flex items-center justify-center w-6 h-6 rounded border-2 border-emerald-500/30 bg-white dark:bg-foreground/5 transition-colors group-hover:border-emerald-500">
-              <div class="w-3 h-3 rounded-sm bg-emerald-500 opacity-0 transition-opacity group-hover:opacity-100"></div>
-            </div>
-            
-            <div class="min-w-0 flex-1">
-              <div class="flex items-start justify-between gap-3">
+  <div class="p-5 space-y-6">
+    {Object.entries(grouped).map(([category, categoryItems]) => {
+      const catInfo = categoryLabels[category] || categoryLabels.general;
+      return (
+        <div>
+          <h4 class="flex items-center gap-2 font-semibold text-sm mb-3">
+            <span>{catInfo.icon}</span>
+            {catInfo.label}
+          </h4>
+          <ul class="space-y-2">
+            {categoryItems.map((item) => (
+              <li class="flex items-start gap-3">
+                <input 
+                  type="checkbox" 
+                  class="mt-1 h-4 w-4 rounded border-foreground/20 print:border-black"
+                />
                 <div>
-                  <div class="text-sm font-medium text-foreground">{item.label}</div>
-                  {item.detail && (
-                    <div class="mt-1 text-xs text-foreground/70">{item.detail}</div>
+                  <span class="text-sm">{item.label}</span>
+                  {item.notes && (
+                    <p class="text-xs text-foreground/60 mt-0.5">{item.notes}</p>
                   )}
                 </div>
-                
-                <span class={`shrink-0 rounded-full px-2 py-0.5 text-xs font-medium border ${style.border} ${style.bg} ${style.text}`}>
-                  {style.label}
-                </span>
-              </div>
-            </div>
-          </div>
-        );
-      })}
-    </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
+    })}
+  </div>
 
-    <div class="mt-6 rounded-lg bg-emerald-500/10 p-3">
-      <div class="flex items-center gap-2 text-sm">
-        <span class="text-emerald-600">✓</span>
-        <span class="font-medium text-emerald-700 dark:text-emerald-400">
-          Ready to start? Double-check all required items before proceeding.
-        </span>
-      </div>
-    </div>
+  <div class="bg-foreground/[.02] px-5 py-3 border-t border-foreground/10 print:bg-white">
+    <p class="text-xs text-foreground/50">
+      💡 Tip: Review and refresh this checklist quarterly. Check expiration dates on food, water, and medications.
+    </p>
   </div>
 </div>

@@ -1,117 +1,154 @@
 ---
-interface Tool {
+interface Item {
   name: string;
-  essential: boolean;
-  notes?: string;
+  description?: string;
   affiliateUrl?: string;
-}
-
-interface Part {
-  name: string;
-  partNumber?: string;
-  notes?: string;
-  affiliateUrl?: string;
+  priceRange?: string;
 }
 
 interface Props {
-  tools?: Tool[];
-  parts?: Part[];
-  notes?: string;
+  title?: string;
+  mustHave?: Item[];
+  niceToHave?: Item[];
+  safetyGear?: Item[];
+  disclaimer?: string;
 }
 
-const { tools = [], parts = [], notes } = Astro.props;
+const {
+  title = "Tools & Parts You'll Need",
+  mustHave = [],
+  niceToHave = [],
+  safetyGear = [],
+  disclaimer = "Some links may be affiliate links.",
+} = Astro.props;
+
+const hasMustHave = mustHave.length > 0;
+const hasNiceToHave = niceToHave.length > 0;
+const hasSafetyGear = safetyGear.length > 0;
+
+if (!hasMustHave && !hasNiceToHave && !hasSafetyGear) {
+  return null;
+}
 ---
 
-<div class="not-prose my-8 rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
-  <div class="border-b border-primary/20 px-6 py-4">
-    <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-primary-600 dark:text-primary-400">
+<div class="not-prose my-8 rounded-2xl border border-foreground/10 bg-foreground/[.02]">
+  <div class="border-b border-foreground/10 px-6 py-4">
+    <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-foreground/70">
       <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
         <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
       </svg>
-      Tools & Parts Needed
+      {title}
     </div>
   </div>
 
-  <div class="px-6 py-5">
-    {tools.length > 0 && (
-      <div class="mb-6">
+  <div class="grid gap-6 p-6 sm:grid-cols-2 lg:grid-cols-3">
+    {hasMustHave && (
+      <div>
         <h4 class="mb-3 flex items-center gap-2 text-sm font-semibold text-foreground">
-          <span class="text-lg">🔧</span>
-          Tools Required
+          <span class="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/20 text-xs text-emerald-600 dark:text-emerald-400">✓</span>
+          Must-Have
         </h4>
-        <div class="space-y-2">
-          {tools.map((tool) => (
-            <div class="flex items-start justify-between gap-3 rounded-lg bg-foreground/[.03] px-3 py-2">
+        <ul class="space-y-2">
+          {mustHave.map((item) => (
+            <li class="flex items-start gap-3">
+              <span class="text-sm text-emerald-500">•</span>
               <div class="min-w-0 flex-1">
-                <div class="flex items-center gap-2">
-                  <span class={`text-sm font-medium ${tool.essential ? 'text-foreground' : 'text-foreground/70'}`}>
-                    {tool.name}
-                  </span>
-                  {tool.essential && (
-                    <span class="rounded-full bg-accent/20 px-2 py-0.5 text-xs font-medium text-accent">
-                      Essential
-                    </span>
+                <div class="flex flex-wrap items-baseline gap-x-2">
+                  {item.affiliateUrl ? (
+                    <a
+                      href={item.affiliateUrl}
+                      target="_blank"
+                      rel="noopener noreferrer sponsored"
+                      class="font-medium text-foreground hover:text-blue-600 hover:underline dark:hover:text-blue-400"
+                    >
+                      {item.name}
+                    </a>
+                  ) : (
+                    <span class="font-medium text-foreground">{item.name}</span>
                   )}
+                  {item.priceRange && <span class="text-xs text-foreground/60">{item.priceRange}</span>}
                 </div>
-                {tool.notes && (
-                  <p class="mt-1 text-xs text-foreground/60">{tool.notes}</p>
-                )}
+                {item.description && <p class="mt-0.5 text-sm text-foreground/70">{item.description}</p>}
               </div>
-              {tool.affiliateUrl && (
-                <a 
-                  href={tool.affiliateUrl} 
-                  class="shrink-0 text-xs text-accent hover:text-accent-600"
-                  target="_blank"
-                  rel="noopener"
-                >
-                  Buy →
-                </a>
-              )}
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     )}
 
-    {parts.length > 0 && (
-      <div class="mb-4">
+    {hasNiceToHave && (
+      <div>
         <h4 class="mb-3 flex items-center gap-2 text-sm font-semibold text-foreground">
-          <span class="text-lg">🔩</span>
-          Parts & Materials
+          <span class="flex h-5 w-5 items-center justify-center rounded-full bg-blue-500/20 text-xs text-blue-600 dark:text-blue-400">+</span>
+          Nice-to-Have
         </h4>
-        <div class="space-y-2">
-          {parts.map((part) => (
-            <div class="flex items-start justify-between gap-3 rounded-lg bg-foreground/[.03] px-3 py-2">
+        <ul class="space-y-2">
+          {niceToHave.map((item) => (
+            <li class="flex items-start gap-3">
+              <span class="text-sm text-blue-500">◦</span>
               <div class="min-w-0 flex-1">
-                <span class="text-sm font-medium text-foreground">{part.name}</span>
-                {part.partNumber && (
-                  <div class="mt-1 text-xs text-foreground/50">Part #: {part.partNumber}</div>
-                )}
-                {part.notes && (
-                  <p class="mt-1 text-xs text-foreground/60">{part.notes}</p>
-                )}
+                <div class="flex flex-wrap items-baseline gap-x-2">
+                  {item.affiliateUrl ? (
+                    <a
+                      href={item.affiliateUrl}
+                      target="_blank"
+                      rel="noopener noreferrer sponsored"
+                      class="font-medium text-foreground hover:text-blue-600 hover:underline dark:hover:text-blue-400"
+                    >
+                      {item.name}
+                    </a>
+                  ) : (
+                    <span class="font-medium text-foreground">{item.name}</span>
+                  )}
+                  {item.priceRange && <span class="text-xs text-foreground/60">{item.priceRange}</span>}
+                </div>
+                {item.description && <p class="mt-0.5 text-sm text-foreground/70">{item.description}</p>}
               </div>
-              {part.affiliateUrl && (
-                <a 
-                  href={part.affiliateUrl} 
-                  class="shrink-0 text-xs text-accent hover:text-accent-600"
-                  target="_blank"
-                  rel="noopener"
-                >
-                  Buy →
-                </a>
-              )}
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     )}
 
-    {notes && (
-      <div class="rounded-lg bg-blue-500/10 px-3 py-2 text-xs text-foreground/80">
-        <span class="font-medium">💡 Note: </span>{notes}
+    {hasSafetyGear && (
+      <div>
+        <h4 class="mb-3 flex items-center gap-2 text-sm font-semibold text-foreground">
+          <span class="flex h-5 w-5 items-center justify-center rounded-full bg-amber-500/20 text-xs text-amber-600 dark:text-amber-400">!</span>
+          Safety Gear
+        </h4>
+        <ul class="space-y-2">
+          {safetyGear.map((item) => (
+            <li class="flex items-start gap-3">
+              <span class="text-sm text-amber-500">⚡</span>
+              <div class="min-w-0 flex-1">
+                <div class="flex flex-wrap items-baseline gap-x-2">
+                  {item.affiliateUrl ? (
+                    <a
+                      href={item.affiliateUrl}
+                      target="_blank"
+                      rel="noopener noreferrer sponsored"
+                      class="font-medium text-foreground hover:text-blue-600 hover:underline dark:hover:text-blue-400"
+                    >
+                      {item.name}
+                    </a>
+                  ) : (
+                    <span class="font-medium text-foreground">{item.name}</span>
+                  )}
+                  {item.priceRange && <span class="text-xs text-foreground/60">{item.priceRange}</span>}
+                </div>
+                {item.description && <p class="mt-0.5 text-sm text-foreground/70">{item.description}</p>}
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
     )}
   </div>
+
+  {disclaimer && (
+    <div class="border-t border-foreground/10 px-6 py-3">
+      <p class="text-xs text-foreground/50">{disclaimer}</p>
+    </div>
+  )}
 </div>

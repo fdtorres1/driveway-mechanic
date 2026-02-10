@@ -31,32 +31,12 @@ const safetyLevelSchema = z.enum(["low", "medium", "high"]);
 
 const vehicleTypeSchema = z.enum([
   "car",
-  "truck", 
+  "truck",
   "suv",
   "minivan",
   "hybrid",
-  "electric"
+  "electric",
 ]);
-
-// Diagnostic flow steps schema
-const diagnosticStepSchema = z.object({
-  stepNumber: z.number().optional(),
-  title: z.string(),
-  details: z.string().optional(),
-  outcome: z.string().optional(),
-  nextIfPass: z.string().optional(),
-  nextIfFail: z.string().optional(),
-  safetyNote: z.string().optional(),
-});
-
-const diagnosticFlowSchema = z
-  .object({
-    title: z.string().optional(),
-    intro: z.string().optional(),
-    steps: z.array(diagnosticStepSchema),
-    whenToCallPro: z.string().optional(),
-  })
-  .optional();
 
 // ============================================
 // MDX CONTENT COLLECTIONS
@@ -72,43 +52,42 @@ const articles = defineCollection({
     updatedAt: z.coerce.date().optional(),
     coverImage: z.string().optional(),
     author: z.string().optional(),
-    pillar: z.enum(["fix", "maintain", "buy", "learn", "seasonal"]),
-    hub: z.string().optional(),
     category: z.string().optional(),
+    hubs: z.array(z.string()).default([]),
     topics: z.array(z.string()).default([]),
     relatedArticles: z.array(z.string()).default([]),
-    
+
     // Automotive-specific fields
-    vehicles: z.array(z.string()).default([]), // ["toyota-camry-2018-2023", "honda-civic-2016-2023"]
-    vehicleTypes: z.array(vehicleTypeSchema).default([]), // ["car", "suv"]
-    difficulty: difficultySchema,
+    vehicles: z.array(z.string()).default([]),
+    vehicleTypes: z.array(vehicleTypeSchema).default([]),
+    articleType: z
+      .enum([
+        "troubleshooting",
+        "how-to",
+        "buyer-guide",
+        "comparison",
+        "cost-guide",
+        "maintenance-schedule",
+      ])
+      .optional(),
+    difficulty: difficultySchema.optional(),
     timeCostSkill: timeCostSkillSchema,
     safetyLevel: safetyLevelSchema.default("low"),
-    
+
     // Parts and tools for affiliate linking
     partsNeeded: z.array(z.string()).default([]),
     toolsNeeded: z.array(z.string()).default([]),
-    
+
     // OBD codes for diagnostic articles
-    obdCodes: z.array(z.string()).default([]), // ["P0300", "P0171"]
-    
+    obdCodes: z.array(z.string()).default([]),
+
     // Mileage/maintenance intervals
-    maintenanceInterval: z.string().optional(), // "30,000 miles"
-    
-    // Article type for content organization
-    articleType: z.enum([
-      "troubleshooting",
-      "how-to", 
-      "buyer-guide",
-      "comparison",
-      "cost-guide",
-      "maintenance-schedule"
-    ]).optional(),
-    
+    maintenanceInterval: z.string().optional(),
+
     seo: seoSchema,
     adsEnabled: z.boolean().default(true),
     affiliateEnabled: z.boolean().default(true),
-    
+
     // Safety callouts for high-risk content
     stopHere: z.array(z.string()).default([]),
   }),
@@ -120,14 +99,13 @@ const hubs = defineCollection({
     title: z.string(),
     description: z.string().optional(),
     icon: z.string().optional(),
-    pillar: z.enum(["fix", "maintain", "buy", "learn", "seasonal"]),
     featuredArticles: z.array(z.string()).default([]),
     order: z.number().default(0),
     seo: seoSchema,
-    
+
     // For sub-hubs (e.g., fix/brakes)
     parentHub: z.string().optional(),
-    
+
     // Featured content sections for hub pages
     featured: z
       .object({
@@ -153,7 +131,7 @@ const authors = defineCollection({
     bio: z.string().optional(),
     avatar: z.string().optional(),
     credentials: z.string().optional(),
-    specialties: z.array(z.string()).default([]), // ["brakes", "engine", "electrical"]
+    specialties: z.array(z.string()).default([]),
   }),
 });
 
@@ -164,7 +142,6 @@ const categories = defineCollection({
     description: z.string().optional(),
     icon: z.string().optional(),
     parent: z.string().optional(),
-    pillar: z.enum(["fix", "maintain", "buy", "learn", "seasonal"]),
   }),
 });
 
@@ -182,9 +159,9 @@ const vehicles = defineCollection({
   schema: z.object({
     make: z.string(),
     model: z.string(),
-    yearRange: z.string(), // "2018-2023"
-    slug: z.string(), // "toyota-camry-2018-2023"
-    engines: z.array(z.string()).default([]), // ["2.5L I4", "3.5L V6"]
+    yearRange: z.string(),
+    slug: z.string(),
+    engines: z.array(z.string()).default([]),
     type: vehicleTypeSchema,
     commonIssues: z.array(z.string()).default([]),
     maintenanceNotes: z.string().optional(),

@@ -10,10 +10,11 @@ export interface Props {
     publishedAt?: Date;
     updatedAt?: Date;
     author?: string;
-    pillar: string;
+    hubs?: string[];
     hub?: string;
     vehicles?: string[];
-    difficulty: string;
+    difficulty?: string;
+    articleType?: string;
     timeCostSkill?: {
       time: string;
       diyCost: string;
@@ -32,17 +33,11 @@ export interface Props {
 
 const { frontmatter } = Astro.props;
 
+const primaryHub = frontmatter.hubs?.[0] || frontmatter.hub || "articles";
 const breadcrumbs = [
   { label: "Home", href: "/" },
-  { label: frontmatter.pillar.charAt(0).toUpperCase() + frontmatter.pillar.slice(1), href: `/${frontmatter.pillar}` },
+  { label: primaryHub.charAt(0).toUpperCase() + primaryHub.slice(1), href: `/${primaryHub}` },
 ];
-
-if (frontmatter.hub) {
-  breadcrumbs.push({
-    label: frontmatter.hub.charAt(0).toUpperCase() + frontmatter.hub.slice(1),
-    href: `/${frontmatter.pillar}/${frontmatter.hub}`
-  });
-}
 
 const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat("en-US", {
