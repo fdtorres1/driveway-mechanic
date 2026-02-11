@@ -1,6 +1,6 @@
 ---
 interface Props {
-  tone?: "note" | "tip" | "warning";
+  tone?: "note" | "tip" | "warning" | "info";
 }
 
 const { tone = "note" } = Astro.props;
@@ -9,12 +9,14 @@ const toneStyles = {
   note: "border-zinc-500/20 bg-zinc-500/10",
   tip: "border-emerald-500/25 bg-emerald-500/10",
   warning: "border-amber-500/30 bg-amber-500/10",
+  info: "border-blue-500/25 bg-blue-500/10",
 };
 
 const toneLabels = {
   note: "📝 Note",
   tip: "💡 Tip",
   warning: "⚠️ Warning",
+  info: "ℹ️ Info",
 };
 ---
 

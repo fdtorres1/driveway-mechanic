@@ -1,0 +1,87 @@
+---
+interface Step {
+  stepNumber?: number;
+  title: string;
+  details?: string;
+  outcome?: string;
+  nextIfPass?: string;
+  nextIfFail?: string;
+}
+
+interface Props {
+  title?: string;
+  intro?: string;
+  steps: Step[];
+  whenToCallPro?: string;
+}
+
+const { title, intro, steps, whenToCallPro } = Astro.props;
+---
+
+<div class="not-prose my-8 rounded-2xl border border-amber-500/20 bg-gradient-to-br from-amber-500/5 to-transparent">
+  <div class="border-b border-amber-500/20 px-6 py-4">
+    <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-amber-600 dark:text-amber-400">
+      <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+      </svg>
+      Diagnostic Flow — Follow These Steps
+    </div>
+    {title && <h3 class="mt-2 text-lg font-semibold text-foreground">{title}</h3>}
+    {intro && <p class="mt-1 text-sm text-foreground/70">{intro}</p>}
+  </div>
+
+  <ol class="divide-y divide-amber-500/10">
+    {steps.map((step, index) => (
+      <li class="px-6 py-5">
+        <div class="flex gap-4">
+          <div class="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-amber-500 text-sm font-bold text-white">
+            {step.stepNumber || index + 1}
+          </div>
+          <div class="min-w-0 flex-1">
+            <h4 class="font-semibold text-foreground">{step.title}</h4>
+            
+            {step.details && (
+              <p class="mt-2 text-sm text-foreground/80">{step.details}</p>
+            )}
+
+            {step.outcome && (
+              <div class="mt-3 rounded-lg bg-foreground/5 px-3 py-2 text-sm">
+                <span class="font-medium text-foreground/70">Look for: </span>
+                <span class="text-foreground/80">{step.outcome}</span>
+              </div>
+            )}
+
+            {(step.nextIfPass || step.nextIfFail) && (
+              <div class="mt-3 grid gap-2 text-sm sm:grid-cols-2">
+                {step.nextIfPass && (
+                  <div class="flex items-start gap-2 rounded-lg border border-emerald-500/20 bg-emerald-500/10 px-3 py-2">
+                    <span class="text-emerald-600 dark:text-emerald-400">✓</span>
+                    <span class="text-foreground/80">{step.nextIfPass}</span>
+                  </div>
+                )}
+                {step.nextIfFail && (
+                  <div class="flex items-start gap-2 rounded-lg border border-amber-500/20 bg-amber-500/10 px-3 py-2">
+                    <span class="text-amber-600 dark:text-amber-400">✗</span>
+                    <span class="text-foreground/80">{step.nextIfFail}</span>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      </li>
+    ))}
+  </ol>
+
+  {whenToCallPro && (
+    <div class="border-t border-amber-500/20 px-6 py-4">
+      <div class="flex items-start gap-3 rounded-xl bg-foreground/5 px-4 py-3">
+        <span class="text-lg">👷</span>
+        <div>
+          <div class="text-xs font-semibold uppercase tracking-wide text-foreground/70">When to Call a Pro</div>
+          <p class="mt-1 text-sm text-foreground/80">{whenToCallPro}</p>
+        </div>
+      </div>
+    </div>
+  )}
+</div>
