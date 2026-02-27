@@ -1,0 +1,123 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const BUY_HUBS = ["tools", "parts", "accessories", "buyer-guides"];
+
+const articles = await getCollection("articles", ({ data }) => {
+  const inBuyHub = data.hubs.some((h: string) => BUY_HUBS.includes(h));
+  const isBuyerContent = data.articleType === "buyer-guide" || data.articleType === "comparison";
+  return (inBuyHub || isBuyerContent) && !data.draft;
+});
+
+const sortedArticles = articles.sort((a, b) => {
+  const dateA = a.data.publishedAt?.getTime() ?? 0;
+  const dateB = b.data.publishedAt?.getTime() ?? 0;
+  return dateB - dateA;
+});
+---
+
+<Layout 
+  title="Buy & Compare"
+  description="Honest buyer guides for automotive tools, parts, and equipment. Find the right products for your DIY repairs without overspending."
+>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+    <nav class="mb-6" aria-label="Breadcrumb">
+      <ol class="flex items-center gap-2 text-sm text-foreground/60">
+        <li><a href="/" class="hover:text-foreground">Home</a></li>
+        <li>/</li>
+        <li class="text-foreground">Buy & Compare</li>
+      </ol>
+    </nav>
+
+    <div class="mb-12">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500 text-white">
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+          </svg>
+        </div>
+        <h1 class="text-4xl font-bold text-foreground">Buy & Compare</h1>
+      </div>
+      <p class="text-lg text-foreground/70 max-w-3xl">
+        Cut through the marketing noise. Our buyer guides are based on real-world testing, 
+        forum consensus, and independent reviews — not affiliate commission rates.
+      </p>
+    </div>
+
+    {sortedArticles.length > 0 && (
+      <div class="mb-12 rounded-2xl border border-blue-500/20 bg-gradient-to-br from-blue-500/5 to-transparent p-8">
+        <h2 class="text-2xl font-bold text-foreground mb-4">🏆 Buyer Guides</h2>
+        <p class="text-foreground/70 mb-6">
+          Our most popular and most-researched product recommendations.
+        </p>
+        
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {sortedArticles.map((article) => {
+            const slug = article.id.replace(/\.mdx?$/, '');
+            return (
+              <a href={`/buy/${slug}`} class="group rounded-lg border border-foreground/10 bg-background p-4 hover:bg-foreground/[.02] transition-colors">
+                <div class="font-semibold text-foreground group-hover:text-blue-600">{article.data.title}</div>
+                <div class="text-sm text-foreground/60 mt-1">{article.data.excerpt?.slice(0, 80)}…</div>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    )}
+
+    <div class="mb-12">
+      <h2 class="text-2xl font-bold text-foreground mb-6">Browse by Category</h2>
+      
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div class="rounded-2xl border border-indigo-500/20 bg-gradient-to-br from-indigo-500/5 to-transparent p-6">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-2xl">🔧</span>
+            <h3 class="text-lg font-semibold text-foreground">Tools</h3>
+          </div>
+          <p class="text-sm text-foreground/70">
+            Wrenches, jacks, stands, diagnostic tools, and everything for your garage
+          </p>
+        </div>
+
+        <div class="rounded-2xl border border-orange-500/20 bg-gradient-to-br from-orange-500/5 to-transparent p-6">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-2xl">⚙️</span>
+            <h3 class="text-lg font-semibold text-foreground">Parts</h3>
+          </div>
+          <p class="text-sm text-foreground/70">
+            Brake pads, filters, spark plugs, and replacement parts compared
+          </p>
+        </div>
+
+        <div class="rounded-2xl border border-teal-500/20 bg-gradient-to-br from-teal-500/5 to-transparent p-6">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-2xl">🧴</span>
+            <h3 class="text-lg font-semibold text-foreground">Fluids & Chemicals</h3>
+          </div>
+          <p class="text-sm text-foreground/70">
+            Motor oil, brake cleaner, penetrating oils, and lubricants tested
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="rounded-2xl border border-blue-500/30 bg-gradient-to-br from-blue-500/10 to-transparent p-8">
+      <div class="flex items-start gap-4">
+        <div class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-white shrink-0">
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-blue-700 dark:text-blue-400 mb-2">How We Review Products</h3>
+          <p class="text-blue-600 dark:text-blue-300">
+            We cross-reference enthusiast forums, independent testers, and real-world use before 
+            recommending anything. Our picks are based on merit, not commission rates.
+            <a href="/affiliate-disclosure" class="underline hover:no-underline ml-1">Read our affiliate disclosure →</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

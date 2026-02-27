@@ -5,6 +5,10 @@ import tailwind from "@astrojs/tailwind";
 
 export default defineConfig({
   site: "https://drivewaymechanicguide.com",
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: "viewport",
+  },
   integrations: [
     mdx(),
     sitemap(),

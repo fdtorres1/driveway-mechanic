@@ -1,0 +1,182 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import { getSectionKey } from "../../lib/hubs";
+
+const articles = await getCollection("articles", ({ data }) => !data.draft);
+
+const fixArticles = articles.filter(a =>
+  a.data.articleType === "troubleshooting" || a.data.hubs.some((h: string) => 
+    ["electrical", "engine", "brakes"].includes(h)
+  )
+).slice(0, 3);
+
+const maintainArticles = articles.filter(a =>
+  a.data.articleType === "how-to"
+).slice(0, 3);
+
+const buyArticles = articles.filter(a =>
+  a.data.articleType === "buyer-guide" || a.data.articleType === "comparison"
+).slice(0, 3);
+---
+
+<Layout 
+  title="Learn"
+  description="Understand how your car works. From engine basics to reading OBD codes, build the knowledge to tackle any automotive challenge."
+>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+    <nav class="mb-6" aria-label="Breadcrumb">
+      <ol class="flex items-center gap-2 text-sm text-foreground/60">
+        <li><a href="/" class="hover:text-foreground">Home</a></li>
+        <li>/</li>
+        <li class="text-foreground">Learn</li>
+      </ol>
+    </nav>
+
+    <div class="mb-12">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-purple-500 text-white">
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          </svg>
+        </div>
+        <h1 class="text-4xl font-bold text-foreground">Learn</h1>
+      </div>
+      <p class="text-lg text-foreground/70 max-w-3xl">
+        The more you understand your car, the better you can maintain it, diagnose problems,
+        and avoid getting overcharged at the shop. Start building your automotive knowledge here.
+      </p>
+    </div>
+
+    {fixArticles.length > 0 && (
+      <div class="mb-8 rounded-2xl border border-red-500/20 bg-gradient-to-br from-red-500/5 to-transparent p-8">
+        <h2 class="text-xl font-bold text-foreground mb-4">🔍 Troubleshooting & Diagnostics</h2>
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {fixArticles.map((article) => {
+            const slug = article.id.replace(/\.mdx?$/, '');
+            const section = getSectionKey(article.data.hubs);
+            return (
+              <a href={`/${section}/${slug}`} class="group rounded-lg border border-foreground/10 bg-background p-4 hover:bg-foreground/[.02] transition-colors">
+                <div class="font-semibold text-foreground group-hover:text-red-600">{article.data.title}</div>
+                <div class="text-sm text-foreground/60 mt-1">{article.data.excerpt?.slice(0, 70)}…</div>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    )}
+
+    {maintainArticles.length > 0 && (
+      <div class="mb-8 rounded-2xl border border-emerald-500/20 bg-gradient-to-br from-emerald-500/5 to-transparent p-8">
+        <h2 class="text-xl font-bold text-foreground mb-4">🛠️ How-To Guides</h2>
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {maintainArticles.map((article) => {
+            const slug = article.id.replace(/\.mdx?$/, '');
+            const section = getSectionKey(article.data.hubs);
+            return (
+              <a href={`/${section}/${slug}`} class="group rounded-lg border border-foreground/10 bg-background p-4 hover:bg-foreground/[.02] transition-colors">
+                <div class="font-semibold text-foreground group-hover:text-emerald-600">{article.data.title}</div>
+                <div class="text-sm text-foreground/60 mt-1">{article.data.excerpt?.slice(0, 70)}…</div>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    )}
+
+    {buyArticles.length > 0 && (
+      <div class="mb-8 rounded-2xl border border-blue-500/20 bg-gradient-to-br from-blue-500/5 to-transparent p-8">
+        <h2 class="text-xl font-bold text-foreground mb-4">🏆 Buyer Guides</h2>
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {buyArticles.map((article) => {
+            const slug = article.id.replace(/\.mdx?$/, '');
+            const section = getSectionKey(article.data.hubs);
+            return (
+              <a href={`/${section}/${slug}`} class="group rounded-lg border border-foreground/10 bg-background p-4 hover:bg-foreground/[.02] transition-colors">
+                <div class="font-semibold text-foreground group-hover:text-blue-600">{article.data.title}</div>
+                <div class="text-sm text-foreground/60 mt-1">{article.data.excerpt?.slice(0, 70)}…</div>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    )}
+
+    <div class="mb-12">
+      <h2 class="text-2xl font-bold text-foreground mb-6">Topics</h2>
+      
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div class="rounded-2xl border border-red-500/20 bg-gradient-to-br from-red-500/5 to-transparent p-6">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-2xl">🏎️</span>
+            <h3 class="text-lg font-semibold text-foreground">How Engines Work</h3>
+          </div>
+          <p class="text-sm text-foreground/70">
+            Combustion basics, common engine types, and what all those parts actually do
+          </p>
+        </div>
+
+        <div class="rounded-2xl border border-amber-500/20 bg-gradient-to-br from-amber-500/5 to-transparent p-6">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-2xl">⚡</span>
+            <h3 class="text-lg font-semibold text-foreground">Electrical Basics</h3>
+          </div>
+          <p class="text-sm text-foreground/70">
+            Batteries, alternators, fuses, and how your car's electrical system works
+          </p>
+        </div>
+
+        <div class="rounded-2xl border border-blue-500/20 bg-gradient-to-br from-blue-500/5 to-transparent p-6">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-2xl">📟</span>
+            <h3 class="text-lg font-semibold text-foreground">OBD & Diagnostics</h3>
+          </div>
+          <p class="text-sm text-foreground/70">
+            Reading trouble codes, understanding scan data, and what the codes mean
+          </p>
+        </div>
+
+        <div class="rounded-2xl border border-emerald-500/20 bg-gradient-to-br from-emerald-500/5 to-transparent p-6">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-2xl">🛑</span>
+            <h3 class="text-lg font-semibold text-foreground">Braking Systems</h3>
+          </div>
+          <p class="text-sm text-foreground/70">
+            Disc vs drum, how ABS works, and what wears out over time
+          </p>
+        </div>
+
+        <div class="rounded-2xl border border-orange-500/20 bg-gradient-to-br from-orange-500/5 to-transparent p-6">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-2xl">🛢️</span>
+            <h3 class="text-lg font-semibold text-foreground">Fluids & Lubrication</h3>
+          </div>
+          <p class="text-sm text-foreground/70">
+            Oil types, coolant, brake fluid, and why each matters for your car's health
+          </p>
+        </div>
+
+        <div class="rounded-2xl border border-indigo-500/20 bg-gradient-to-br from-indigo-500/5 to-transparent p-6">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-2xl">🔧</span>
+            <h3 class="text-lg font-semibold text-foreground">Tool Knowledge</h3>
+          </div>
+          <p class="text-sm text-foreground/70">
+            Essential tools, how to use them safely, and building your first toolkit
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="rounded-2xl border border-purple-500/30 bg-gradient-to-br from-purple-500/10 to-transparent p-8">
+      <div class="text-center">
+        <h3 class="text-xl font-bold text-foreground mb-2">Knowledge Is Power (and Savings)</h3>
+        <p class="text-foreground/70 max-w-2xl mx-auto">
+          Understanding how your car works means you can spot problems early, do more yourself, 
+          and never overpay at the shop again. Every guide here is written to build real understanding, 
+          not just follow steps.
+        </p>
+      </div>
+    </div>
+  </div>
+</Layout>

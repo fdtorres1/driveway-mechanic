@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://drivewaymechanicguide.com/sitemap-index.xml

@@ -4,16 +4,29 @@ export interface Props {
   description?: string;
   canonical?: string;
   noIndex?: boolean;
+  image?: string;
+  jsonLd?: Record<string, unknown>;
 }
 
-const { title, description, canonical, noIndex = false } = Astro.props;
+const { title, description, canonical, noIndex = false, image, jsonLd } = Astro.props;
 
 const siteTitle = "The Driveway Mechanic";
+const siteUrl = "https://drivewaymechanicguide.com";
 const tagline = "Fix it yourself. Save hundreds.";
 const defaultDescription = "Learn to fix and maintain your car yourself with expert DIY guides, troubleshooting tips, and money-saving automotive advice.";
 
 const fullTitle = title === siteTitle ? `${siteTitle} - ${tagline}` : `${title} | ${siteTitle}`;
-const metaDescription = description || defaultDescription;
+const metaDescription = description?.trim() || defaultDescription;
+const ogImage = image ? `${siteUrl}${image}` : `${siteUrl}/og-default.jpg`;
+const pageUrl = canonical || Astro.url.href;
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: siteTitle,
+  url: siteUrl,
+  description: defaultDescription,
+};
 ---
 
 <!DOCTYPE html>
@@ -27,24 +40,27 @@ const metaDescription = description || defaultDescription;
     <title>{fullTitle}</title>
     <meta name="description" content={metaDescription} />
     
-    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="canonical" href={pageUrl} />
     {noIndex && <meta name="robots" content="noindex, nofollow" />}
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={pageUrl} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={metaDescription} />
     <meta property="og:site_name" content={siteTitle} />
+    <meta property="og:image" content={ogImage} />
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={metaDescription} />
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="alternate" type="application/rss+xml" title={siteTitle} href={`${siteUrl}/rss.xml`} />
+
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd || websiteJsonLd)} />
+
     <!-- Global Styles -->
     <style>
       :root {
@@ -87,15 +103,27 @@ const metaDescription = description || defaultDescription;
             </ul>
           </nav>
 
+          <div class="flex items-center gap-2">
+          <!-- Dark mode toggle -->
+          <button id="theme-toggle" class="rounded-lg p-2 hover:bg-foreground/10 transition-colors" aria-label="Toggle dark mode">
+            <svg id="theme-icon-light" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+            <svg id="theme-icon-dark" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+          </button>
+
           <!-- Mobile menu button -->
           <button id="mobile-menu-btn" class="md:hidden rounded-lg p-2 hover:bg-foreground/10" aria-label="Toggle menu" aria-expanded="false">
-            <svg id="menu-icon-open" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg id="menu-icon-open" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
-            <svg id="menu-icon-close" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg id="menu-icon-close" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
+          </div>
         </div>
 
         <!-- Mobile menu panel -->
@@ -123,6 +151,34 @@ const metaDescription = description || defaultDescription;
         iconClose?.classList.toggle('hidden', !isOpen);
         btn.setAttribute('aria-expanded', String(isOpen));
       });
+    </script>
+
+    <script is:inline>
+      (function() {
+        const saved = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const isDark = saved === 'dark' || (!saved && prefersDark);
+        document.documentElement.classList.toggle('dark', isDark);
+
+        function updateIcons() {
+          const dark = document.documentElement.classList.contains('dark');
+          const iconLight = document.getElementById('theme-icon-light');
+          const iconDark = document.getElementById('theme-icon-dark');
+          if (iconLight) iconLight.classList.toggle('hidden', dark);
+          if (iconDark) iconDark.classList.toggle('hidden', !dark);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+          updateIcons();
+          const toggle = document.getElementById('theme-toggle');
+          toggle?.addEventListener('click', function() {
+            document.documentElement.classList.toggle('dark');
+            const nowDark = document.documentElement.classList.contains('dark');
+            localStorage.setItem('theme', nowDark ? 'dark' : 'light');
+            updateIcons();
+          });
+        });
+      })();
     </script>
 
     <main>
@@ -156,14 +212,14 @@ const metaDescription = description || defaultDescription;
             </ul>
           </div>
 
-          <!-- Popular Topics -->
+          <!-- Popular Articles -->
           <div>
-            <h4 class="text-sm font-semibold mb-3">Popular Topics</h4>
+            <h4 class="text-sm font-semibold mb-3">Popular Articles</h4>
             <ul class="space-y-2 text-sm">
-              <li><a href="/fix/engine" class="text-foreground/70 hover:text-foreground">Engine Problems</a></li>
-              <li><a href="/fix/brakes" class="text-foreground/70 hover:text-foreground">Brake Issues</a></li>
-              <li><a href="/maintain/oil-fluids" class="text-foreground/70 hover:text-foreground">Oil Changes</a></li>
-              <li><a href="/buy/obd2-scanners" class="text-foreground/70 hover:text-foreground">OBD2 Scanners</a></li>
+              <li><a href="/fix/car-wont-start-clicks" class="text-foreground/70 hover:text-foreground">Car Won't Start</a></li>
+              <li><a href="/fix/check-engine-light-on" class="text-foreground/70 hover:text-foreground">Check Engine Light</a></li>
+              <li><a href="/maintain/how-to-change-oil-toyota-camry" class="text-foreground/70 hover:text-foreground">Oil Change Guide</a></li>
+              <li><a href="/buy/best-obd2-scanners-2026" class="text-foreground/70 hover:text-foreground">Best OBD2 Scanners</a></li>
             </ul>
           </div>
 
@@ -179,7 +235,7 @@ const metaDescription = description || defaultDescription;
         </div>
 
         <div class="border-t border-foreground/10 mt-8 pt-6 text-center text-sm text-foreground/60">
-          <p>&copy; 2026 The Driveway Mechanic. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} The Driveway Mechanic. All rights reserved.</p>
           <p class="mt-1">Always prioritize safety. When in doubt, consult a professional mechanic.</p>
         </div>
       </div>

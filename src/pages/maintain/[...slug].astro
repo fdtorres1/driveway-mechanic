@@ -1,9 +1,9 @@
 ---
-import { getCollection } from "astro:content";
-import type { GetStaticPaths } from "astro";
+import { getCollection, render } from "astro:content";
+import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 import Article from "../../layouts/Article.astro";
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths = (async () => {
   const MAINTAIN_HUBS = ["oil-fluids", "tires", "filters", "belts-hoses", "coolant", "maintenance-schedules"];
   const articles = await getCollection("articles", ({ data }) => {
     const inMaintainHub = data.hubs.some((h: string) => MAINTAIN_HUBS.includes(h));
@@ -12,13 +12,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
   });
 
   return articles.map((entry) => ({
-    params: { slug: entry.id },
+    params: { slug: entry.id.replace(/\.mdx?$/, '') },
     props: { entry },
   }));
-};
+}) satisfies GetStaticPaths;
 
-const { entry } = Astro.props;
-const { Content } = await entry.render();
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { entry } = Astro.props as Props;
+const { Content } = await render(entry);
 ---
 
 <Article frontmatter={entry.data}>

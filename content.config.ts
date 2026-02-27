@@ -93,32 +93,11 @@ const articles = defineCollection({
   }),
 });
 
-const hubs = defineCollection({
-  loader: glob({ pattern: "**/*.mdx", base: "./src/content/hubs" }),
-  schema: z.object({
-    title: z.string(),
-    description: z.string().optional(),
-    icon: z.string().optional(),
-    featuredArticles: z.array(z.string()).default([]),
-    order: z.number().default(0),
-    seo: seoSchema,
-
-    // For sub-hubs (e.g., fix/brakes)
-    parentHub: z.string().optional(),
-
-    // Featured content sections for hub pages
-    featured: z
-      .object({
-        troubleshooting: z.array(z.string()).default([]),
-        howTos: z.array(z.string()).default([]),
-        buyerGuides: z.array(z.string()).default([]),
-        costGuides: z.array(z.string()).default([]),
-        comparisons: z.array(z.string()).default([]),
-        subHubs: z.array(z.string()).default([]),
-      })
-      .optional(),
-  }),
-});
+// Hubs collection — re-enable when hub content is added to src/content/hubs/
+// const hubs = defineCollection({
+//   loader: glob({ pattern: "**/*.mdx", base: "./src/content/hubs" }),
+//   schema: z.object({ ... }),
+// });
 
 // ============================================
 // YAML DATA COLLECTIONS
@@ -145,28 +124,8 @@ const categories = defineCollection({
   }),
 });
 
-const topics = defineCollection({
-  loader: glob({ pattern: "*.yaml", base: "./src/data/topics" }),
-  schema: z.object({
-    title: z.string(),
-    description: z.string().optional(),
-  }),
-});
-
-// Vehicle data for make/model specific content
-const vehicles = defineCollection({
-  loader: glob({ pattern: "*.yaml", base: "./src/data/vehicles" }),
-  schema: z.object({
-    make: z.string(),
-    model: z.string(),
-    yearRange: z.string(),
-    slug: z.string(),
-    engines: z.array(z.string()).default([]),
-    type: vehicleTypeSchema,
-    commonIssues: z.array(z.string()).default([]),
-    maintenanceNotes: z.string().optional(),
-  }),
-});
+// Topics and vehicles collections — re-enable when data files are added
+// to src/data/topics/ and src/data/vehicles/ respectively
 
 // ============================================
 // EXPORT COLLECTIONS
@@ -174,9 +133,6 @@ const vehicles = defineCollection({
 
 export const collections = {
   articles,
-  hubs,
   authors,
   categories,
-  topics,
-  vehicles,
 };

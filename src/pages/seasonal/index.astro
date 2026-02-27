@@ -1,0 +1,175 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout 
+  title="Seasonal Car Care"
+  description="Prepare your car for any season. Winter prep, summer cooling, and seasonal maintenance guides to keep you on the road year-round."
+>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+    <nav class="mb-6" aria-label="Breadcrumb">
+      <ol class="flex items-center gap-2 text-sm text-foreground/60">
+        <li><a href="/" class="hover:text-foreground">Home</a></li>
+        <li>/</li>
+        <li class="text-foreground">Seasonal</li>
+      </ol>
+    </nav>
+
+    <div class="mb-12">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-500 text-white">
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+          </svg>
+        </div>
+        <h1 class="text-4xl font-bold text-foreground">Seasonal Car Care</h1>
+      </div>
+      <p class="text-lg text-foreground/70 max-w-3xl">
+        Weather changes stress your car in different ways. A few hours of prep each season 
+        prevents breakdowns, extends the life of your vehicle, and keeps you safe on the road.
+      </p>
+    </div>
+
+    <div class="grid gap-8 md:grid-cols-2 mb-12">
+      <div class="rounded-2xl border border-blue-400/20 bg-gradient-to-br from-blue-400/5 to-transparent p-8">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-3xl">❄️</span>
+          <h2 class="text-2xl font-bold text-foreground">Winter Prep</h2>
+        </div>
+        <p class="text-foreground/70 mb-4">
+          Cold weather is brutal on batteries, tires, and fluids. Get your car ready before 
+          the first freeze.
+        </p>
+        <ul class="space-y-2 text-sm text-foreground/70">
+          <li class="flex items-center gap-2">
+            <span class="text-blue-400">•</span>
+            Battery testing and replacement
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-blue-400">•</span>
+            Coolant/antifreeze check
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-blue-400">•</span>
+            Tire condition and pressure
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-blue-400">•</span>
+            Wiper blades and washer fluid
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-blue-400">•</span>
+            Heater and defroster function
+          </li>
+        </ul>
+      </div>
+
+      <div class="rounded-2xl border border-amber-400/20 bg-gradient-to-br from-amber-400/5 to-transparent p-8">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-3xl">☀️</span>
+          <h2 class="text-2xl font-bold text-foreground">Summer Prep</h2>
+        </div>
+        <p class="text-foreground/70 mb-4">
+          Heat kills batteries and overworks cooling systems. Prepare now to avoid roadside breakdowns.
+        </p>
+        <ul class="space-y-2 text-sm text-foreground/70">
+          <li class="flex items-center gap-2">
+            <span class="text-amber-400">•</span>
+            AC system inspection
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-amber-400">•</span>
+            Cooling system flush
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-amber-400">•</span>
+            Belt and hose inspection
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-amber-400">•</span>
+            Tire pressure (heat increases PSI)
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-amber-400">•</span>
+            Battery load test
+          </li>
+        </ul>
+      </div>
+
+      <div class="rounded-2xl border border-green-400/20 bg-gradient-to-br from-green-400/5 to-transparent p-8">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-3xl">🌸</span>
+          <h2 class="text-2xl font-bold text-foreground">Spring Checkup</h2>
+        </div>
+        <p class="text-foreground/70 mb-4">
+          Winter is hard on cars. Spring is the time to undo the damage and refresh everything.
+        </p>
+        <ul class="space-y-2 text-sm text-foreground/70">
+          <li class="flex items-center gap-2">
+            <span class="text-green-400">•</span>
+            Wash undercarriage (salt removal)
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-green-400">•</span>
+            Alignment check after potholes
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-green-400">•</span>
+            Brake inspection
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-green-400">•</span>
+            Replace cabin air filter
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-green-400">•</span>
+            Wiper blade replacement
+          </li>
+        </ul>
+      </div>
+
+      <div class="rounded-2xl border border-orange-400/20 bg-gradient-to-br from-orange-400/5 to-transparent p-8">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-3xl">🍂</span>
+          <h2 class="text-2xl font-bold text-foreground">Fall Prep</h2>
+        </div>
+        <p class="text-foreground/70 mb-4">
+          Get ahead of winter by handling these tasks while the weather is still comfortable.
+        </p>
+        <ul class="space-y-2 text-sm text-foreground/70">
+          <li class="flex items-center gap-2">
+            <span class="text-orange-400">•</span>
+            Heater core and thermostat check
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-orange-400">•</span>
+            Battery load test
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-orange-400">•</span>
+            Tire tread depth check
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-orange-400">•</span>
+            Headlight and taillight check
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-orange-400">•</span>
+            Emergency kit preparation
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 to-transparent p-8">
+      <div class="text-center">
+        <h3 class="text-xl font-bold text-foreground mb-2">Don't Wait for a Breakdown</h3>
+        <p class="text-foreground/70 max-w-2xl mx-auto">
+          Seasonal prep takes a couple hours and costs almost nothing. A roadside breakdown 
+          costs time, money, and puts your safety at risk. Check back here each season for 
+          updated checklists and guides.
+        </p>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,5 +1,34 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const FIX_HUBS = ["electrical", "engine", "brakes", "ac-heating", "suspension", "noises-smells", "exhaust", "transmission", "battery", "cooling"];
+
+const articles = await getCollection("articles", ({ data }) => {
+  const inFixHub = data.hubs.some((h: string) => FIX_HUBS.includes(h));
+  const isTroubleshooting = data.articleType === "troubleshooting";
+  return (inFixHub || isTroubleshooting) && !data.draft;
+});
+
+const symptomDescriptions: Record<string, string> = {
+  "car-wont-start-clicks": "Usually battery or starter issues",
+  "car-wont-start-no-click": "Could be ignition or fuel system",
+  "check-engine-light-on": "Read codes and understand meanings",
+  "brakes-squealing": "Worn pads or other brake issues",
+  "car-overheating": "Coolant system problems",
+  "ac-not-blowing-cold": "Refrigerant or compressor issues",
+  "brakes-grinding": "Metal-on-metal contact — act fast",
+  "car-stalls-at-idle": "Fuel, air, or sensor problems",
+  "battery-keeps-dying": "Parasitic draw or charging issues",
+  "transmission-slipping": "Low fluid or worn components",
+  "heater-not-working": "Coolant, thermostat, or blend door",
+};
+
+const sortedArticles = articles.sort((a, b) => {
+  const dateA = a.data.publishedAt?.getTime() ?? 0;
+  const dateB = b.data.publishedAt?.getTime() ?? 0;
+  return dateB - dateA;
+});
 ---
 
 <Layout 
@@ -7,7 +36,6 @@ import Layout from "../../layouts/Layout.astro";
   description="Diagnose and fix car problems yourself. Step-by-step troubleshooting guides for engine issues, brake problems, electrical faults, and more."
 >
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-    <!-- Breadcrumbs -->
     <nav class="mb-6" aria-label="Breadcrumb">
       <ol class="flex items-center gap-2 text-sm text-foreground/60">
         <li><a href="/" class="hover:text-foreground">Home</a></li>
@@ -16,7 +44,6 @@ import Layout from "../../layouts/Layout.astro";
       </ol>
     </nav>
 
-    <!-- Header -->
     <div class="mb-12">
       <div class="flex items-center gap-3 mb-4">
         <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-red-500 text-white">
@@ -32,138 +59,94 @@ import Layout from "../../layouts/Layout.astro";
       </p>
     </div>
 
-    <!-- Quick Start -->
-    <div class="mb-12 rounded-2xl border border-accent/20 bg-gradient-to-br from-accent/5 to-transparent p-8">
-      <h2 class="text-2xl font-bold text-foreground mb-4">🚗 What's Wrong With Your Car?</h2>
-      <p class="text-foreground/70 mb-6">
-        Start by describing the symptoms. We'll guide you through the most likely causes and fixes.
-      </p>
-      
-      <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <a href="/fix/car-wont-start-clicks" class="group rounded-lg border border-foreground/10 bg-background p-4 hover:bg-foreground/[.02] transition-colors">
-          <div class="font-semibold text-foreground group-hover:text-accent">Won't Start (but clicks)</div>
-          <div class="text-sm text-foreground/60 mt-1">Usually battery or starter issues</div>
-        </a>
+    {sortedArticles.length > 0 && (
+      <div class="mb-12 rounded-2xl border border-accent/20 bg-gradient-to-br from-accent/5 to-transparent p-8">
+        <h2 class="text-2xl font-bold text-foreground mb-4">🚗 What's Wrong With Your Car?</h2>
+        <p class="text-foreground/70 mb-6">
+          Start by describing the symptoms. We'll guide you through the most likely causes and fixes.
+        </p>
         
-        <a href="/fix/car-wont-start-no-click" class="group rounded-lg border border-foreground/10 bg-background p-4 hover:bg-foreground/[.02] transition-colors">
-          <div class="font-semibold text-foreground group-hover:text-accent">Won't Start (no click)</div>
-          <div class="text-sm text-foreground/60 mt-1">Could be ignition or fuel system</div>
-        </a>
-        
-        <a href="/fix/check-engine-light-on" class="group rounded-lg border border-foreground/10 bg-background p-4 hover:bg-foreground/[.02] transition-colors">
-          <div class="font-semibold text-foreground group-hover:text-accent">Check Engine Light</div>
-          <div class="text-sm text-foreground/60 mt-1">Read codes and understand meanings</div>
-        </a>
-        
-        <a href="/fix/brakes-squealing" class="group rounded-lg border border-foreground/10 bg-background p-4 hover:bg-foreground/[.02] transition-colors">
-          <div class="font-semibold text-foreground group-hover:text-accent">Squealing Brakes</div>
-          <div class="text-sm text-foreground/60 mt-1">Worn pads or other brake issues</div>
-        </a>
-        
-        <a href="/fix/car-overheating" class="group rounded-lg border border-foreground/10 bg-background p-4 hover:bg-foreground/[.02] transition-colors">
-          <div class="font-semibold text-foreground group-hover:text-accent">Overheating</div>
-          <div class="text-sm text-foreground/60 mt-1">Coolant system problems</div>
-        </a>
-        
-        <a href="/fix/ac-not-blowing-cold" class="group rounded-lg border border-foreground/10 bg-background p-4 hover:bg-foreground/[.02] transition-colors">
-          <div class="font-semibold text-foreground group-hover:text-accent">AC Not Cold</div>
-          <div class="text-sm text-foreground/60 mt-1">Refrigerant or compressor issues</div>
-        </a>
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {sortedArticles.map((article) => {
+            const slug = article.id.replace(/\.mdx?$/, '');
+            const desc = symptomDescriptions[slug] || article.data.excerpt?.slice(0, 60) + "…";
+            return (
+              <a href={`/fix/${slug}`} class="group rounded-lg border border-foreground/10 bg-background p-4 hover:bg-foreground/[.02] transition-colors">
+                <div class="font-semibold text-foreground group-hover:text-accent">{article.data.title}</div>
+                <div class="text-sm text-foreground/60 mt-1">{desc}</div>
+              </a>
+            );
+          })}
+        </div>
       </div>
-    </div>
+    )}
 
-    <!-- Problem Categories -->
     <div class="mb-12">
       <h2 class="text-2xl font-bold text-foreground mb-6">Browse by System</h2>
       
       <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <!-- Engine & Performance -->
         <div class="rounded-2xl border border-red-500/20 bg-gradient-to-br from-red-500/5 to-transparent p-6">
           <div class="flex items-center gap-3 mb-3">
             <span class="text-2xl">🏎️</span>
             <h3 class="text-lg font-semibold text-foreground">Engine & Performance</h3>
           </div>
-          <p class="text-sm text-foreground/70 mb-4">
+          <p class="text-sm text-foreground/70">
             Won't start, rough idle, stalling, check engine light, overheating
           </p>
-          <a href="/fix/engine" class="text-red-600 hover:text-red-700 font-medium">
-            Diagnose Engine Issues →
-          </a>
         </div>
 
-        <!-- Brakes -->
         <div class="rounded-2xl border border-amber-500/20 bg-gradient-to-br from-amber-500/5 to-transparent p-6">
           <div class="flex items-center gap-3 mb-3">
             <span class="text-2xl">🛑</span>
             <h3 class="text-lg font-semibold text-foreground">Brakes</h3>
           </div>
-          <p class="text-sm text-foreground/70 mb-4">
+          <p class="text-sm text-foreground/70">
             Squealing, grinding, soft pedal, pulling, vibration when braking
           </p>
-          <a href="/fix/brakes" class="text-amber-600 hover:text-amber-700 font-medium">
-            Fix Brake Problems →
-          </a>
         </div>
 
-        <!-- Electrical & Battery -->
         <div class="rounded-2xl border border-blue-500/20 bg-gradient-to-br from-blue-500/5 to-transparent p-6">
           <div class="flex items-center gap-3 mb-3">
             <span class="text-2xl">⚡</span>
             <h3 class="text-lg font-semibold text-foreground">Electrical & Battery</h3>
           </div>
-          <p class="text-sm text-foreground/70 mb-4">
+          <p class="text-sm text-foreground/70">
             Dead battery, alternator problems, lights not working, parasitic draw
           </p>
-          <a href="/fix/electrical" class="text-blue-600 hover:text-blue-700 font-medium">
-            Solve Electrical Issues →
-          </a>
         </div>
 
-        <!-- AC & Heating -->
         <div class="rounded-2xl border border-emerald-500/20 bg-gradient-to-br from-emerald-500/5 to-transparent p-6">
           <div class="flex items-center gap-3 mb-3">
             <span class="text-2xl">❄️</span>
             <h3 class="text-lg font-semibold text-foreground">AC & Heating</h3>
           </div>
-          <p class="text-sm text-foreground/70 mb-4">
+          <p class="text-sm text-foreground/70">
             No cold air, no heat, bad smells, compressor noise
           </p>
-          <a href="/fix/ac-heating" class="text-emerald-600 hover:text-emerald-700 font-medium">
-            Fix Climate Control →
-          </a>
         </div>
 
-        <!-- Suspension & Steering -->
         <div class="rounded-2xl border border-purple-500/20 bg-gradient-to-br from-purple-500/5 to-transparent p-6">
           <div class="flex items-center gap-3 mb-3">
             <span class="text-2xl">🛞</span>
             <h3 class="text-lg font-semibold text-foreground">Suspension & Steering</h3>
           </div>
-          <p class="text-sm text-foreground/70 mb-4">
+          <p class="text-sm text-foreground/70">
             Clunking, pulling, uneven tire wear, shaking at speed
           </p>
-          <a href="/fix/suspension" class="text-purple-600 hover:text-purple-700 font-medium">
-            Fix Handling Issues →
-          </a>
         </div>
 
-        <!-- Noises & Smells -->
         <div class="rounded-2xl border border-orange-500/20 bg-gradient-to-br from-orange-500/5 to-transparent p-6">
           <div class="flex items-center gap-3 mb-3">
             <span class="text-2xl">👂</span>
             <h3 class="text-lg font-semibold text-foreground">Noises & Smells</h3>
           </div>
-          <p class="text-sm text-foreground/70 mb-4">
+          <p class="text-sm text-foreground/70">
             Strange sounds, burning smells, clicking, grinding, squealing
           </p>
-          <a href="/fix/noises-smells" class="text-orange-600 hover:text-orange-700 font-medium">
-            Identify Sounds & Smells →
-          </a>
         </div>
       </div>
     </div>
 
-    <!-- Safety Notice -->
     <div class="rounded-2xl border border-red-500/30 bg-gradient-to-br from-red-500/10 to-transparent p-8">
       <div class="flex items-start gap-4">
         <div class="flex h-10 w-10 items-center justify-center rounded-full bg-red-600 text-white shrink-0">

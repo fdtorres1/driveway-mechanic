@@ -2,6 +2,7 @@
 import Layout from "./Layout.astro";
 import TimeCostSkill from "../components/mdx/TimeCostSkill.astro";
 import VehicleFitment from "../components/mdx/VehicleFitment.astro";
+import { getSection } from "../lib/hubs";
 
 export interface Props {
   frontmatter: {
@@ -33,10 +34,14 @@ export interface Props {
 
 const { frontmatter } = Astro.props;
 
+const siteUrl = "https://drivewaymechanicguide.com";
 const primaryHub = frontmatter.hubs?.[0] || frontmatter.hub || "articles";
+
+const section = getSection([primaryHub]);
+
 const breadcrumbs = [
   { label: "Home", href: "/" },
-  { label: primaryHub.charAt(0).toUpperCase() + primaryHub.slice(1), href: `/${primaryHub}` },
+  { label: section.label, href: section.href },
 ];
 
 const formatDate = (date: Date) => {
@@ -46,6 +51,41 @@ const formatDate = (date: Date) => {
     day: "numeric",
   }).format(date);
 };
+
+const isHowTo = frontmatter.articleType === "how-to";
+
+const pageUrl = `${siteUrl}${section.href}/${Astro.url.pathname.split('/').filter(Boolean).pop()}`;
+
+const articleJsonLd: Record<string, unknown> = {
+  "@context": "https://schema.org",
+  "@type": isHowTo ? "HowTo" : "Article",
+  headline: frontmatter.title,
+  description: frontmatter.seo?.description || frontmatter.excerpt,
+  mainEntityOfPage: { "@type": "WebPage", "@id": pageUrl },
+  ...(frontmatter.publishedAt && { datePublished: frontmatter.publishedAt.toISOString() }),
+  ...(frontmatter.updatedAt && { dateModified: frontmatter.updatedAt.toISOString() }),
+  author: {
+    "@type": "Organization",
+    name: frontmatter.author || "The Driveway Mechanic",
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "The Driveway Mechanic",
+    url: siteUrl,
+  },
+  image: `${siteUrl}/og-default.jpg`,
+};
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: breadcrumbs.map((crumb, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name: crumb.label,
+    item: `${siteUrl}${crumb.href}`,
+  })),
+};
 ---
 
 <Layout 
@@ -53,6 +93,7 @@ const formatDate = (date: Date) => {
   description={frontmatter.seo?.description || frontmatter.excerpt}
   canonical={frontmatter.seo?.canonicalUrl}
   noIndex={frontmatter.seo?.noIndex}
+  jsonLd={articleJsonLd}
 >
   <article class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12">
     <!-- Breadcrumbs -->
@@ -100,10 +141,12 @@ const formatDate = (date: Date) => {
           </div>
         )}
 
-        <div class="flex items-center gap-2">
-          <span>🎯</span>
-          <span class="capitalize">{frontmatter.difficulty}</span>
-        </div>
+        {frontmatter.difficulty && (
+          <div class="flex items-center gap-2">
+            <span>🎯</span>
+            <span class="capitalize">{frontmatter.difficulty}</span>
+          </div>
+        )}
       </div>
 
       <!-- Vehicle Fitment -->
@@ -116,6 +159,8 @@ const formatDate = (date: Date) => {
         <TimeCostSkill {...frontmatter.timeCostSkill} />
       )}
     </header>
+
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
 
     <!-- Article Content -->
     <div class="prose prose-lg max-w-none">
