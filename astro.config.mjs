@@ -4,7 +4,7 @@ import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 
 export default defineConfig({
-  site: "https://drivewaymechanicguide.com",
+  site: "https://drivewaymechanic.co",
   prefetch: {
     prefetchAll: true,
     defaultStrategy: "viewport",
