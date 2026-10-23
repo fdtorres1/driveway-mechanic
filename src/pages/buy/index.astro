@@ -1,13 +1,10 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import { getSectionKey } from "../../lib/hubs";
 import { getCollection } from "astro:content";
 
-const BUY_HUBS = ["tools", "parts", "accessories", "buyer-guides"];
-
 const articles = await getCollection("articles", ({ data }) => {
-  const inBuyHub = data.hubs.some((h: string) => BUY_HUBS.includes(h));
-  const isBuyerContent = data.articleType === "buyer-guide" || data.articleType === "comparison";
-  return (inBuyHub || isBuyerContent) && !data.draft;
+  return !data.draft && getSectionKey(data.hubs, data.articleType) === "buy";
 });
 
 const sortedArticles = articles.sort((a, b) => {
@@ -40,8 +37,8 @@ const sortedArticles = articles.sort((a, b) => {
         <h1 class="text-4xl font-bold text-foreground">Buy & Compare</h1>
       </div>
       <p class="text-lg text-foreground/70 max-w-3xl">
-        Cut through the marketing noise. Our buyer guides are based on real-world testing, 
-        forum consensus, and independent reviews — not affiliate commission rates.
+        Compare tools using manufacturer documentation, supported vehicle coverage,
+        and clear limits. These guides identify the research behind each recommendation.
       </p>
     </div>
 
@@ -49,7 +46,7 @@ const sortedArticles = articles.sort((a, b) => {
       <div class="mb-12 rounded-2xl border border-blue-500/20 bg-gradient-to-br from-blue-500/5 to-transparent p-8">
         <h2 class="text-2xl font-bold text-foreground mb-4">🏆 Buyer Guides</h2>
         <p class="text-foreground/70 mb-6">
-          Our most popular and most-researched product recommendations.
+          Research-based comparisons for common automotive tasks.
         </p>
         
         <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -96,7 +93,7 @@ const sortedArticles = articles.sort((a, b) => {
             <h3 class="text-lg font-semibold text-foreground">Fluids & Chemicals</h3>
           </div>
           <p class="text-sm text-foreground/70">
-            Motor oil, brake cleaner, penetrating oils, and lubricants tested
+            Specifications and suitability to check before buying fluids and chemicals
           </p>
         </div>
       </div>
@@ -112,8 +109,8 @@ const sortedArticles = articles.sort((a, b) => {
         <div>
           <h3 class="text-lg font-bold text-blue-700 dark:text-blue-400 mb-2">How We Review Products</h3>
           <p class="text-blue-600 dark:text-blue-300">
-            We cross-reference enthusiast forums, independent testers, and real-world use before 
-            recommending anything. Our picks are based on merit, not commission rates.
+            Our current scanner comparison uses manufacturer documentation and coverage tools.
+            We have not hands-on tested those products. Check compatibility for your exact vehicle before buying.
             <a href="/affiliate-disclosure" class="underline hover:no-underline ml-1">Read our affiliate disclosure →</a>
           </p>
         </div>

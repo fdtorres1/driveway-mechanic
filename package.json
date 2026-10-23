@@ -9,7 +9,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "lint": "eslint .",
-    "typecheck": "astro check"
+    "typecheck": "astro check",
+    "check:site": "node scripts/check-built-site.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.0.0",

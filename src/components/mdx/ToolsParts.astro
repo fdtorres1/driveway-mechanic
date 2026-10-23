@@ -19,12 +19,13 @@ const {
   mustHave = [],
   niceToHave = [],
   safetyGear = [],
-  disclaimer = "Some links may be affiliate links.",
+  disclaimer = "We may earn a commission if you buy through the product links in this list.",
 } = Astro.props;
 
 const hasMustHave = mustHave.length > 0;
 const hasNiceToHave = niceToHave.length > 0;
 const hasSafetyGear = safetyGear.length > 0;
+const hasAffiliateLinks = [...mustHave, ...niceToHave, ...safetyGear].some(item => item.affiliateUrl);
 
 if (!hasMustHave && !hasNiceToHave && !hasSafetyGear) {
   return null;
@@ -146,9 +147,9 @@ if (!hasMustHave && !hasNiceToHave && !hasSafetyGear) {
     )}
   </div>
 
-  {disclaimer && (
+  {hasAffiliateLinks && disclaimer && (
     <div class="border-t border-foreground/10 px-6 py-3">
-      <p class="text-xs text-foreground/50">{disclaimer}</p>
+      <p class="text-sm text-foreground/80">{disclaimer}</p>
     </div>
   )}
 </div>

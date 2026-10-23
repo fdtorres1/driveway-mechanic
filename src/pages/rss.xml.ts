@@ -12,11 +12,11 @@ export async function GET(context: APIContext) {
       "DIY automotive guides, troubleshooting tips, and money-saving advice for home mechanics.",
     site: context.site!.toString(),
     items: articles.map((article) => {
-      const section = getSectionKey(article.data.hubs);
+      const section = getSectionKey(article.data.hubs, article.data.articleType);
       const slug = article.id.replace(/\.mdx?$/, "");
       return {
         title: article.data.title,
-        pubDate: article.data.publishedAt ?? new Date(),
+        pubDate: article.data.publishedAt,
         description: article.data.excerpt ?? "",
         link: `/${section}/${slug}`,
       };

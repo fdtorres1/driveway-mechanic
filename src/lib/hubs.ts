@@ -29,14 +29,18 @@ const HUB_TO_SECTION_KEY: Record<string, SectionKey> = {
   "buyer-guides": "buy",
 };
 
-export function getSectionKey(hubs: string[]): SectionKey {
+// The first recognized hub owns the URL. Article type is a fallback only,
+// so a mixed-topic article cannot generate competing section routes.
+export function getSectionKey(hubs: string[], articleType?: string): SectionKey {
   for (const hub of hubs) {
     const key = HUB_TO_SECTION_KEY[hub];
     if (key) return key;
   }
+  if (articleType === "buyer-guide" || articleType === "comparison") return "buy";
+  if (articleType === "how-to" || articleType === "maintenance-schedule") return "maintain";
   return "fix";
 }
 
-export function getSection(hubs: string[]) {
-  return SECTIONS[getSectionKey(hubs)];
+export function getSection(hubs: string[], articleType?: string) {
+  return SECTIONS[getSectionKey(hubs, articleType)];
 }

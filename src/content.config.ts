@@ -27,7 +27,7 @@ const timeCostSkillSchema = z
 // Automotive-specific enums and schemas
 const difficultySchema = z.enum(["beginner", "intermediate", "advanced"]);
 
-const safetyLevelSchema = z.enum(["low", "medium", "high"]);
+const safetyLevelSchema = z.enum(["low", "medium", "high", "critical"]);
 
 const vehicleTypeSchema = z.enum([
   "car",
@@ -47,7 +47,7 @@ const articles = defineCollection({
   schema: z.object({
     title: z.string(),
     excerpt: z.string().optional(),
-    draft: z.boolean().default(false),
+    draft: z.boolean().default(true),
     publishedAt: z.coerce.date().optional(),
     updatedAt: z.coerce.date().optional(),
     coverImage: z.string().optional(),
@@ -85,11 +85,14 @@ const articles = defineCollection({
     maintenanceInterval: z.string().optional(),
 
     seo: seoSchema,
-    adsEnabled: z.boolean().default(true),
-    affiliateEnabled: z.boolean().default(true),
+    adsEnabled: z.boolean().default(false),
+    affiliateEnabled: z.boolean().default(false),
 
     // Safety callouts for high-risk content
     stopHere: z.array(z.string()).default([]),
+  }).refine((article) => article.draft || article.publishedAt !== undefined, {
+    message: "Published articles require a publishedAt date.",
+    path: ["publishedAt"],
   }),
 });
 

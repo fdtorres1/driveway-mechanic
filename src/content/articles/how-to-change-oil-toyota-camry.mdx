@@ -1,273 +1,106 @@
 ---
-title: "How to Change Oil on a 2018-2023 Toyota Camry (2.5L Engine)"
-excerpt: "Complete step-by-step guide to changing oil and filter on a Toyota Camry 2.5L engine. Save $40+ and learn to maintain your car yourself with this detailed DIY tutorial."
+title: "2023 Toyota Camry 2.5L Oil Change: Specs and Preparation"
+excerpt: "Verify the oil grade, refill reference, maintenance interval, and safe preparation for a 2023 non-hybrid Camry 2.5L. Includes Toyota's oil-level check."
+draft: false
 publishedAt: 2026-02-10
-author: "The Driveway Mechanic Team"
+updatedAt: 2026-10-22
+author: "The Driveway Mechanic"
 hubs: ["oil-fluids"]
 category: "oil-change"
 articleType: "how-to"
-vehicles: ["toyota-camry-2018-2023"]
+vehicles: ["U.S. 2023 Toyota Camry — non-hybrid 2.5L A25A-FKS"]
 difficulty: "beginner"
-timeCostSkill:
-  time: "30–45 min"
-  diyCost: "$35–$45"
-  shopCost: "$75–$100"
-  skill: "beginner"
-  notes: "Perfect first DIY maintenance job"
 safetyLevel: "medium"
-partsNeeded: ["0w20-oil", "oil-filter", "drain-plug-gasket"]
-toolsNeeded: ["floor-jack", "jack-stands", "socket-set", "oil-drain-pan", "funnel"]
-maintenanceInterval: "10,000 miles"
+partsNeeded: []
+toolsNeeded: []
 topics: ["oil-change", "maintenance", "toyota", "camry", "2.5l-engine"]
+affiliateEnabled: false
 seo:
-  description: "Learn how to change oil and filter on 2018-2023 Toyota Camry 2.5L. Step-by-step DIY guide with tools, parts, and safety tips. Save $40+ per oil change."
+  description: "2023 Toyota Camry non-hybrid 2.5L oil specifications, refill reference, maintenance intervals, and oil-level check. Prepare before beginning an oil change."
 ---
 
 import SafetyCallout from "@/components/mdx/SafetyCallout.astro"
-import ToolsParts from "@/components/mdx/ToolsParts.astro"
-import Callout from "@/components/mdx/Callout.astro"
-import CostComparison from "@/components/mdx/CostComparison.astro"
-import AffiliateProduct from "@/components/mdx/AffiliateProduct.astro"
-import GoChecklist from "@/components/mdx/GoChecklist.astro"
-import VehicleFitment from "@/components/mdx/VehicleFitment.astro"
 
-Changing your own oil is one of the best ways to start maintaining your Toyota Camry yourself. It's straightforward, saves money, and helps you get familiar with your car. **This guide covers the 2018-2023 Camry with the 2.5L 4-cylinder engine** — the most common configuration.
+**The U.S.-market 2023 Toyota Camry with the non-hybrid 2.5L A25A-FKS engine specifies SAE 0W-16 oil meeting ILSAC GF-6B.** Toyota lists **4.8 U.S. quarts (4.5 liters)** as the drain-and-refill reference quantity **with a filter change**. Confirm the final level with the dipstick; the reference capacity is not an instruction to add that amount to an engine that already contains oil. See [Toyota's 2023 owner's manual, page 578](https://assets.sia.toyota.com/publications/en/om-s/OM06259U/pdf/OM06259U.pdf).
 
-<VehicleFitment 
-  vehicles={["2018-2023 Toyota Camry 2.5L I4", "2019-2023 Toyota RAV4 2.5L I4", "2020-2023 Toyota Highlander 2.5L I4"]}
-  note="This procedure also works for other Toyota models with the 2AR-FE 2.5L engine"
-/>
+This page covers oil specifications, preparation, and checking or topping up the oil level for that exact model and engine. **It is not a complete drain-and-filter replacement procedure.** Use the applicable Toyota repair instructions before lifting the car or removing the filter or drain plug.
 
-## Why Change Your Own Oil?
+## Confirm the car before buying supplies
 
-<CostComparison 
-  title="Oil Change Costs: DIY vs Quick Lube"
-  diyCost="$35–$45"
-  shopCost="$75–$100"
-  diyTime="30–45 minutes"
-  shopTime="30 minutes + drive time + wait"
-  diyDescription="Full synthetic 0W-20 oil and quality filter in your driveway"
-  shopDescription="Quick lube service with unknown oil quality"
-  breakdownDIY={[
-    { item: "5 quarts 0W-20 oil", cost: "$25–$35" },
-    { item: "Oil filter", cost: "$8–$12" },
-    { item: "Drain plug gasket", cost: "$2" }
-  ]}
-  breakdownShop={[
-    { item: "Labor", cost: "$25–$40" },
-    { item: "Oil + filter", cost: "$50–$60" }
-  ]}
-/>
+Check your model year, market, and engine against the owner's manual and vehicle information. This page does not establish specifications or fitment for the Camry Hybrid, V6, other model years, RAV4, or Highlander. A shared displacement does not establish a shared service procedure.
 
-**You'll save $30-55 per oil change.** Over the life of your car, that's $300-600 in savings plus the peace of mind of knowing the job was done right.
+| Item | Verified specification for this scope |
+| --- | --- |
+| Engine | Non-hybrid 2.5L four-cylinder, A25A-FKS |
+| Recommended oil | SAE 0W-16, ILSAC GF-6B |
+| Drain and refill with filter | Reference: 4.8 U.S. qt (4.5 L) |
+| Drain and refill without filter | Reference: 4.4 U.S. qt (4.2 L) |
+| Final quantity | Establish by the owner's-manual dipstick check; avoid overfilling |
 
-## What You'll Need
+These values come from the [2023 owner's manual, page 578](https://assets.sia.toyota.com/publications/en/om-s/OM06259U/pdf/OM06259U.pdf). If 0W-16 is unavailable, Toyota permits 0W-20 temporarily and says to return to 0W-16 at the next oil change. The [maintenance guide, page 56](https://assets.sia.toyota.com/publications/en/omms-s/T-MMS-23Camry/pdf/T-MMS-23Camry.pdf), specifies the shorter replacement interval for substitute oil; do not treat 0W-20 as the normal recommendation.
 
-<ToolsParts 
-  mustHave={[
-    { name: "Floor jack", description: "Must lift front of car safely" },
-    { name: "2 jack stands", description: "NEVER work under car without stands" },
-    { name: "17mm socket or box wrench", description: "For drain plug" },
-    { name: "Oil filter wrench", description: "64mm socket or cup-style wrench" },
-    { name: "Drain pan (6+ quarts)", description: "Must hold all old oil" },
-    { name: "Funnel", description: "For adding new oil without spills" }
-  ]}
-  niceToHave={[
-    { name: "Disposable gloves", description: "Keep hands clean" }
-  ]}
-/>
+## What to verify before a full oil change
 
-## Pre-Work Safety Checklist
+Have the correct oil, a filter and drain-plug sealing parts confirmed for your vehicle, a suitable drain pan, and a disposal plan ready. Confirm filter fitment through a Toyota parts source or the filter manufacturer's application catalog using the exact vehicle details. This page does not recommend a filter part number or wrench size.
 
-<GoChecklist
-  title="Before You Start"
-  timeEstimate="5 minutes"
-  items={[
-    { label: "Engine is warm but not hot", notes: "Run engine 5 minutes, then let cool 10 minutes", category: "general" },
-    { label: "Car on level ground", notes: "Driveway or garage, not on a slope", category: "general" },
-    { label: "Parking brake set", category: "general" },
-    { label: "Jack and stands inspected", notes: "No damage, proper weight rating", category: "tools" },
-    { label: "All tools ready", notes: "Tools organized and within reach", category: "tools" },
-    { label: "Old oil disposal plan", notes: "Auto parts store or quick lube takes used oil free", category: "general" }
-  ]}
-/>
+Before starting, obtain the applicable repair procedure covering:
 
-<SafetyCallout 
-  severity="danger"
-  title="NEVER Work Under a Car Without Jack Stands"
+- Underbody access and identification of the engine-oil drain and filter.
+- The correct filter installation method and tightening specification.
+- Drain-plug sealing-part replacement and tightening specification, including installation conditions.
+- Approved lifting and support locations and equipment instructions if under-car access is required.
+- Leak inspection and the maintenance-reminder reset for the actual display fitted to the car.
+
+The owner's manual shows floor-jack positions on page 459, but that illustration alone is not a complete stand-support procedure. **Never get underneath a vehicle supported only by a jack** (see the jack warning on page 545). If you cannot establish the correct procedure or support arrangement, have a qualified shop perform the oil change. Do not substitute a guessed torque or a “snug plus a quarter turn” rule.
+
+<SafetyCallout
+  severity="warning"
+  title="Before checking or adding oil"
   bullets={[
-    "Hydraulic jacks can fail - use jack stands EVERY time",
-    "Position jack stands on proper lift points",
-    "Test stability before getting under the car",
-    "Hot oil and engine parts can cause burns",
-    "Wear safety glasses when oil is draining"
+    "Park on level ground, secure the vehicle, and switch the engine off before reaching into the engine compartment.",
+    "Keep hands, clothing, and tools away from fans and belts. Engine parts and oil can remain hot after driving; avoid contact and wear safety glasses.",
+    "Support the hood correctly. Keep rags and other flammable materials out of the engine compartment.",
+    "If the low engine oil pressure warning appears while driving, stop in a safe place and contact Toyota. A routine top-up is not a diagnosis of an oil-pressure warning."
   ]}
-  callProMessage="If you don't have proper lifting equipment, many quick lubes will let you bring your own oil and filter for a reduced labor fee."
 />
 
-## Step-by-Step Procedure
+Toyota's precautions are on [pages 455–458 and 528 of the owner's manual](https://assets.sia.toyota.com/publications/en/om-s/OM06259U/pdf/OM06259U.pdf).
 
-### Step 1: Prepare the Car
+## Check the oil level without lifting the car
 
-1. **Run the engine for 5 minutes** to warm the oil (makes it flow better)
-2. **Turn off engine and wait 10 minutes** (oil is warm but not dangerously hot)
-3. **Set parking brake** and put transmission in Park
-4. **Pop the hood** and locate the oil filler cap (has oil symbol)
+Follow [Toyota's oil-level procedure, pages 462–465](https://assets.sia.toyota.com/publications/en/om-s/OM06259U/pdf/OM06259U.pdf):
 
-### Step 2: Lift the Front of the Car
+1. Park on level ground. With the engine warmed to operating temperature and then turned off, **wait more than five minutes** for oil to drain back.
+2. Open and safely support the hood. Pull out the engine-oil dipstick with a rag held under its end.
+3. Wipe the dipstick clean and reinsert it fully.
+4. Pull it out again and read the level against the dipstick markings. The manual illustrates low, normal, and excessive levels.
+5. Wipe it and reinsert it fully after checking.
 
-The **drain plug is on the passenger side** of the oil pan, accessible from the front-right wheel well.
+If the level is near or below the low mark, first confirm the oil already in the engine and use the same type. Remove the oil filler cap, add oil slowly through a clean funnel while checking the dipstick, then tighten the filler cap. **Do not pour in the full service-refill capacity as a top-up.** Overfilling can damage the engine. If the level is excessive, you cannot get a clear reading, or oil loss recurs, have the condition corrected before treating the service as complete.
 
-1. **Loosen front lug nuts** (don't remove completely)
-2. **Position floor jack** under the front center jack point
-3. **Lift front of car** until both front wheels are off ground
-4. **Place jack stands** under proper lift points (marked on frame rails)
-5. **Lower car onto stands** and test stability
-6. **Remove front-right wheel** for easier access
+## When are oil and filter changes due?
 
-<Callout tone="warning">
-  **Lift points for 2018-2023 Camry:** Look for reinforced notches on the frame rails behind each wheel. Never jack on the oil pan, suspension arms, or body panels.
-</Callout>
+For this engine using the specified 0W-16 oil, Toyota's [2023 Warranty & Maintenance Guide, pages 38 and 56](https://assets.sia.toyota.com/publications/en/omms-s/T-MMS-23Camry/pdf/T-MMS-23Camry.pdf), gives **10,000 miles or 12 months, whichever comes first**. Other scheduled maintenance still occurs between those oil changes.
 
-### Step 3: Locate Drain Plug and Filter
+Toyota specifies **5,000 miles or six months** for oil and filter replacement when the majority of driving is under the listed special operating conditions:
 
-From under the front-right of the car:
+- Dirt roads or dusty roads.
+- Towing, use of a car-top carrier, or heavy vehicle loading. This maintenance category does not establish that the vehicle is approved for towing.
+- Repeated trips of less than five miles in temperatures below 32°F (0°C).
+- Extensive idling or low-speed driving for a long distance, such as police, taxi, or door-to-door delivery use.
 
-- **Drain plug:** 17mm bolt on passenger side of oil pan
-- **Oil filter:** Black cylindrical canister above the oil pan, toward the center
+Occasional exposure alone does not trigger those additional services under the guide's explanation on page 37. If substitute 0W-20 was used, page 56 also requires replacement at **5,000 miles or six months** with the specified 0W-16. Check the guide for the maintenance due at your mileage and elapsed time.
 
-Both are accessible from this position. The drain plug may have a plastic splash shield around it that you can work through.
+## Plan disposal and keep a record
 
-### Step 4: Drain the Oil
+Keep used oil in a leak-proof container and arrange an accepting collection location before draining it. Call ahead about oil, filters, container requirements, and fees; free acceptance is not universal. The [EPA's consumer used-oil guidance](https://www.epa.gov/recycle/managing-reusing-and-recycling-used-oil) explains recycling. Toyota also warns against putting used oil or filters in household trash, sewers, or on the ground (owner's manual, page 465).
 
-1. **Position drain pan** slightly to passenger side (oil will arc out)
-2. **Remove drain plug** with 17mm socket (turn counterclockwise)
-3. **Let oil drain completely** (15-20 minutes)
-4. **Clean drain plug** and inspect the gasket
+Record the date, mileage, oil grade, filter identification, and work performed. If a shop does the service, keep its invoice and ask it to document the installed oil and filter.
 
-<Callout tone="tip">
-  **Pro tip:** The oil will initially shoot out, then slow to a drip. Start the drain pan to one side, then move it directly under the plug as flow slows.
-</Callout>
+## Sources and review limits
 
-### Step 5: Replace the Filter
+Reviewed October 22, 2026 against Toyota's U.S. 2023 non-hybrid Camry documents. This article reports documented specifications; it does not claim a hands-on oil-change test or professional sign-off.
 
-While oil is draining:
-
-1. **Position drain pan** under the filter area
-2. **Remove old filter** by turning counterclockwise (may need filter wrench)
-3. **Clean filter mounting surface** on engine block
-4. **Apply thin coat of new oil** to new filter's rubber gasket
-5. **Install new filter** hand-tight plus 3/4 turn (do NOT over-tighten)
-
-<Callout tone="warning">
-  The old filter will spill oil when removed. Have your drain pan ready and expect some mess.
-</Callout>
-
-### Step 6: Reinstall Drain Plug
-
-1. **Thread drain plug by hand** until snug (prevent cross-threading)
-2. **Install new drain plug gasket** if old one is damaged
-3. **Tighten with socket** to 30 ft-lbs (snug plus 1/4 turn)
-4. **Don't over-tighten** — you'll strip the oil pan threads
-
-### Step 7: Lower the Car
-
-1. **Reinstall wheel** and hand-tighten lug nuts
-2. **Raise car slightly** to remove jack stands
-3. **Lower car completely**
-4. **Tighten lug nuts** to spec (76 ft-lbs) in star pattern
-
-### Step 8: Add New Oil
-
-1. **Remove oil filler cap** on top of engine
-2. **Insert funnel** into filler hole
-3. **Add 4.5 quarts** of 0W-20 oil slowly
-4. **Wait 5 minutes** for oil to settle
-5. **Check oil level** with dipstick (should be between MIN and MAX)
-6. **Add more if needed** (don't overfill)
-
-<Callout tone="note">
-  **Capacity:** 2018-2023 Camry 2.5L holds 4.8 quarts total, but start with 4.5 quarts since some old oil remains in the engine.
-</Callout>
-
-### Step 9: Test and Clean Up
-
-1. **Start engine** and let idle for 2-3 minutes
-2. **Check for leaks** under the car
-3. **Turn off engine** and wait 5 minutes
-4. **Recheck oil level** and top off if needed
-5. **Reset oil life monitor** (see owner's manual for procedure)
-
-## Oil and Filter Recommendations
-
-<AffiliateProduct 
-  name="Mobil 1 Advanced Fuel Economy 0W-20"
-  url="https://amazon.com/dp/B00L6QDWDY"
-  merchant="Amazon"
-  price="$28.99"
-  pros={["Excellent cold-weather flow", "Extends drain intervals", "Improved fuel economy"]}
-  cons={["Slightly more expensive than conventional oil"]}
-/>
-
-<AffiliateProduct 
-  name="Genuine Toyota Oil Filter (90915-YZZF1)"
-  url="https://amazon.com/dp/B07QRKM8HX"
-  merchant="Amazon"
-  price="$11.99"
-  pros={["Perfect fit guaranteed", "OEM quality and filtration", "Proven reliability"]}
-  cons={["Costs more than aftermarket options"]}
-/>
-
-## Maintenance Schedule
-
-**For 2018-2023 Camry with 0W-20 synthetic oil:**
-- **Normal driving:** Every 10,000 miles
-- **Severe conditions:** Every 5,000 miles
-
-**Severe conditions include:**
-- Frequent short trips (less than 5 miles)
-- Stop-and-go traffic
-- Extreme temperatures
-- Dusty conditions
-- Towing
-
-<Callout tone="tip">
-  Keep a log of oil changes with mileage and date. This helps with warranty coverage and resale value.
-</Callout>
-
-## Common Mistakes to Avoid
-
-1. **Over-tightening drain plug** — Strips oil pan threads (expensive repair)
-2. **Double-gasketing oil filter** — Causes massive leak (remove old gasket first)
-3. **Overfilling with oil** — Can damage engine (check level carefully)
-4. **Forgetting to reinstall drain plug** — You'll lose all new oil immediately
-5. **Using wrong oil viscosity** — Stick to 0W-20 for this engine
-
-## Troubleshooting
-
-**Oil leak after change:**
-- Check drain plug and filter tightness
-- Look for double-gasketed filter
-- Ensure drain plug gasket is properly seated
-
-**Oil level too high:**
-- Drain some oil through drain plug
-- Never drive with overfilled oil
-
-**Oil level too low:**
-- Add small amounts and recheck
-- Look for leaks if level drops quickly
-
-## Environmental Note
-
-**Dispose of used oil responsibly:**
-- Most auto parts stores accept used oil for free
-- Quick lube shops also take used oil
-- Never dump oil down drains or on the ground
-- Used filters should also be recycled
-
----
-
-**Congratulations!** You've just completed your first oil change and saved $30-55. This skill will serve you well throughout car ownership. The more you do it, the faster and more confident you'll become.
-
-**Next maintenance to learn:** How to rotate your tires — another simple DIY that saves money and extends tire life. Guide coming soon!
+- [2023 Camry Owner's Manual, OM06259U](https://assets.sia.toyota.com/publications/en/om-s/OM06259U/pdf/OM06259U.pdf): engine-compartment precautions, pages 455–458; floor jack, page 459; oil-level check and oil handling, pages 462–465; oil-pressure warning, page 528; tire-jack warning, page 545; lubrication specifications, page 578.
+- [2023 Camry Warranty & Maintenance Guide](https://assets.sia.toyota.com/publications/en/omms-s/T-MMS-23Camry/pdf/T-MMS-23Camry.pdf): special-condition applicability, page 37; initial schedule, pages 38–39; oil and filter explanation, page 56.
+- [EPA: Managing, Reusing, and Recycling Used Oil](https://www.epa.gov/recycle/managing-reusing-and-recycling-used-oil).

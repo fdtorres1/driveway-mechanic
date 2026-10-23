@@ -1,13 +1,10 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import { getSectionKey } from "../../lib/hubs";
 import { getCollection } from "astro:content";
 
-const MAINTAIN_HUBS = ["oil-fluids", "tires", "filters", "belts-hoses", "coolant", "maintenance-schedules"];
-
 const articles = await getCollection("articles", ({ data }) => {
-  const inMaintainHub = data.hubs.some((h: string) => MAINTAIN_HUBS.includes(h));
-  const isHowTo = data.articleType === "how-to" || data.articleType === "maintenance-schedule";
-  return (inMaintainHub || isHowTo) && !data.draft;
+  return !data.draft && getSectionKey(data.hubs, data.articleType) === "maintain";
 });
 
 const sortedArticles = articles.sort((a, b) => {
@@ -40,8 +37,8 @@ const sortedArticles = articles.sort((a, b) => {
         <h1 class="text-4xl font-bold text-foreground">Maintain & Prevent</h1>
       </div>
       <p class="text-lg text-foreground/70 max-w-3xl">
-        Regular maintenance is the cheapest insurance against big repair bills. Our step-by-step
-        guides make it easy to keep your car running smoothly — all from your driveway.
+        Start with your vehicle's maintenance schedule and specifications.
+        Our guides explain what to check before deciding whether to do a job yourself.
       </p>
     </div>
 
@@ -49,7 +46,7 @@ const sortedArticles = articles.sort((a, b) => {
       <div class="mb-12 rounded-2xl border border-emerald-500/20 bg-gradient-to-br from-emerald-500/5 to-transparent p-8">
         <h2 class="text-2xl font-bold text-foreground mb-4">🛠️ Maintenance Guides</h2>
         <p class="text-foreground/70 mb-6">
-          Step-by-step guides for the maintenance tasks every car owner should know.
+          Vehicle-specific maintenance information, preparation, and limits.
         </p>
         
         <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -110,10 +107,10 @@ const sortedArticles = articles.sort((a, b) => {
           </svg>
         </div>
         <div>
-          <h3 class="text-lg font-bold text-emerald-700 dark:text-emerald-400 mb-2">Maintenance Saves Money</h3>
+          <h3 class="text-lg font-bold text-emerald-700 dark:text-emerald-400 mb-2">Start With the Correct Schedule</h3>
           <p class="text-emerald-600 dark:text-emerald-300">
-            Skipping a $50 oil change can lead to a $5,000 engine replacement. Regular maintenance
-            is the single best way to avoid expensive repairs and keep your car reliable for years.
+            Maintenance requirements depend on the vehicle, engine, operating conditions, time, and mileage.
+            Follow the applicable manufacturer's schedule and investigate warning signs promptly.
           </p>
         </div>
       </div>

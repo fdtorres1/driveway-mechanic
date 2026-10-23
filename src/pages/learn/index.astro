@@ -6,18 +6,11 @@ import { getSectionKey } from "../../lib/hubs";
 const articles = await getCollection("articles", ({ data }) => !data.draft);
 
 const fixArticles = articles.filter(a =>
-  a.data.articleType === "troubleshooting" || a.data.hubs.some((h: string) => 
-    ["electrical", "engine", "brakes"].includes(h)
-  )
-).slice(0, 3);
-
+  getSectionKey(a.data.hubs, a.data.articleType) === "fix").slice(0, 3);
 const maintainArticles = articles.filter(a =>
-  a.data.articleType === "how-to"
-).slice(0, 3);
-
+  getSectionKey(a.data.hubs, a.data.articleType) === "maintain").slice(0, 3);
 const buyArticles = articles.filter(a =>
-  a.data.articleType === "buyer-guide" || a.data.articleType === "comparison"
-).slice(0, 3);
+  getSectionKey(a.data.hubs, a.data.articleType) === "buy").slice(0, 3);
 ---
 
 <Layout 
@@ -54,7 +47,7 @@ const buyArticles = articles.filter(a =>
         <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {fixArticles.map((article) => {
             const slug = article.id.replace(/\.mdx?$/, '');
-            const section = getSectionKey(article.data.hubs);
+            const section = getSectionKey(article.data.hubs, article.data.articleType);
             return (
               <a href={`/${section}/${slug}`} class="group rounded-lg border border-foreground/10 bg-background p-4 hover:bg-foreground/[.02] transition-colors">
                 <div class="font-semibold text-foreground group-hover:text-red-600">{article.data.title}</div>
@@ -72,7 +65,7 @@ const buyArticles = articles.filter(a =>
         <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {maintainArticles.map((article) => {
             const slug = article.id.replace(/\.mdx?$/, '');
-            const section = getSectionKey(article.data.hubs);
+            const section = getSectionKey(article.data.hubs, article.data.articleType);
             return (
               <a href={`/${section}/${slug}`} class="group rounded-lg border border-foreground/10 bg-background p-4 hover:bg-foreground/[.02] transition-colors">
                 <div class="font-semibold text-foreground group-hover:text-emerald-600">{article.data.title}</div>
@@ -90,7 +83,7 @@ const buyArticles = articles.filter(a =>
         <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {buyArticles.map((article) => {
             const slug = article.id.replace(/\.mdx?$/, '');
-            const section = getSectionKey(article.data.hubs);
+            const section = getSectionKey(article.data.hubs, article.data.articleType);
             return (
               <a href={`/${section}/${slug}`} class="group rounded-lg border border-foreground/10 bg-background p-4 hover:bg-foreground/[.02] transition-colors">
                 <div class="font-semibold text-foreground group-hover:text-blue-600">{article.data.title}</div>
@@ -172,9 +165,8 @@ const buyArticles = articles.filter(a =>
       <div class="text-center">
         <h3 class="text-xl font-bold text-foreground mb-2">Knowledge Is Power (and Savings)</h3>
         <p class="text-foreground/70 max-w-2xl mx-auto">
-          Understanding how your car works means you can spot problems early, do more yourself, 
-          and never overpay at the shop again. Every guide here is written to build real understanding, 
-          not just follow steps.
+          Understanding symptoms and maintenance requirements can help you ask clearer questions
+          and decide when a job needs professional equipment or experience.
         </p>
       </div>
     </div>

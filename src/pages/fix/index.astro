@@ -1,17 +1,14 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import { getSectionKey } from "../../lib/hubs";
 import { getCollection } from "astro:content";
 
-const FIX_HUBS = ["electrical", "engine", "brakes", "ac-heating", "suspension", "noises-smells", "exhaust", "transmission", "battery", "cooling"];
-
 const articles = await getCollection("articles", ({ data }) => {
-  const inFixHub = data.hubs.some((h: string) => FIX_HUBS.includes(h));
-  const isTroubleshooting = data.articleType === "troubleshooting";
-  return (inFixHub || isTroubleshooting) && !data.draft;
+  return !data.draft && getSectionKey(data.hubs, data.articleType) === "fix";
 });
 
 const symptomDescriptions: Record<string, string> = {
-  "car-wont-start-clicks": "Usually battery or starter issues",
+  "car-wont-start-clicks": "Separate symptoms from a confirmed diagnosis",
   "car-wont-start-no-click": "Could be ignition or fuel system",
   "check-engine-light-on": "Read codes and understand meanings",
   "brakes-squealing": "Worn pads or other brake issues",
@@ -55,7 +52,7 @@ const sortedArticles = articles.sort((a, b) => {
       </div>
       <p class="text-lg text-foreground/70 max-w-3xl">
         Car problems? We'll help you diagnose and fix them yourself. Our step-by-step guides 
-        walk you through troubleshooting from symptoms to solutions, saving you hundreds in shop fees.
+        help you organize symptoms, understand diagnostic limits, and decide when to get qualified help.
       </p>
     </div>
 

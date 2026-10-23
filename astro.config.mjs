@@ -4,14 +4,17 @@ import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 
 export default defineConfig({
-  site: "https://drivewaymechanic.co",
+  site: "https://www.drivewaymechanic.co",
   prefetch: {
     prefetchAll: true,
     defaultStrategy: "viewport",
   },
   integrations: [
     mdx(),
-    sitemap(),
+    sitemap({
+      filter: (page) => !["/404", "/affiliate-disclosure", "/privacy-policy", "/disclaimer"]
+        .includes(new URL(page).pathname.replace(/\/$/, "")),
+    }),
     tailwind(),
   ],
   markdown: {
