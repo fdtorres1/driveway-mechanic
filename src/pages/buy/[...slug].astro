@@ -1,14 +1,12 @@
 ---
 import { getCollection, render } from "astro:content";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+import { getSectionKey } from "../../lib/hubs";
 import Article from "../../layouts/Article.astro";
 
 export const getStaticPaths = (async () => {
-  const BUY_HUBS = ["tools", "parts", "accessories", "buyer-guides"];
   const articles = await getCollection("articles", ({ data }) => {
-    const inBuyHub = data.hubs.some((h: string) => BUY_HUBS.includes(h));
-    const isBuyerContent = data.articleType === "buyer-guide" || data.articleType === "comparison";
-    return (inBuyHub || isBuyerContent) && !data.draft;
+    return !data.draft && getSectionKey(data.hubs, data.articleType) === "buy";
   });
 
   return articles.map((entry) => ({

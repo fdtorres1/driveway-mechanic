@@ -12,7 +12,6 @@ export interface Props {
     updatedAt?: Date;
     author?: string;
     hubs?: string[];
-    hub?: string;
     vehicles?: string[];
     difficulty?: string;
     articleType?: string;
@@ -34,10 +33,8 @@ export interface Props {
 
 const { frontmatter } = Astro.props;
 
-const siteUrl = "https://drivewaymechanic.co";
-const primaryHub = frontmatter.hubs?.[0] || frontmatter.hub || "articles";
-
-const section = getSection([primaryHub]);
+const siteUrl = Astro.site!.origin;
+const section = getSection(frontmatter.hubs ?? [], frontmatter.articleType);
 
 const breadcrumbs = [
   { label: "Home", href: "/" },
@@ -49,16 +46,15 @@ const formatDate = (date: Date) => {
     year: "numeric",
     month: "long",
     day: "numeric",
+    timeZone: "UTC",
   }).format(date);
 };
 
-const isHowTo = frontmatter.articleType === "how-to";
-
-const pageUrl = `${siteUrl}${section.href}/${Astro.url.pathname.split('/').filter(Boolean).pop()}`;
+const pageUrl = frontmatter.seo?.canonicalUrl || new URL(Astro.url.pathname, Astro.site).href;
 
 const articleJsonLd: Record<string, unknown> = {
   "@context": "https://schema.org",
-  "@type": isHowTo ? "HowTo" : "Article",
+  "@type": "Article",
   headline: frontmatter.title,
   description: frontmatter.seo?.description || frontmatter.excerpt,
   mainEntityOfPage: { "@type": "WebPage", "@id": pageUrl },
@@ -66,7 +62,7 @@ const articleJsonLd: Record<string, unknown> = {
   ...(frontmatter.updatedAt && { dateModified: frontmatter.updatedAt.toISOString() }),
   author: {
     "@type": "Organization",
-    name: frontmatter.author || "The Driveway Mechanic",
+    name: "The Driveway Mechanic",
   },
   publisher: {
     "@type": "Organization",
@@ -163,7 +159,7 @@ const breadcrumbJsonLd = {
     <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
 
     <!-- Article Content -->
-    <div class="prose prose-lg max-w-none">
+    <div class="prose prose-lg max-w-none dark:prose-invert">
       <slot />
     </div>
 
@@ -175,10 +171,9 @@ const breadcrumbJsonLd = {
           <div>
             <h3 class="text-lg font-semibold text-foreground mb-2">Safety Disclaimer</h3>
             <p class="text-sm text-foreground/70">
-              Working on vehicles can be dangerous. This guide is for informational purposes only. 
-              Always prioritize safety, use proper protective equipment, and consult a qualified 
-              professional if you're not comfortable with any procedure. The Driveway Mechanic 
-              is not responsible for any injuries or damage resulting from following these instructions.
+              Use the instructions and specifications for your exact vehicle and equipment.
+              A general guide cannot confirm a diagnosis or replace the manufacturer's service procedure.
+              Stop if the vehicle, tools, or conditions differ from those described, and get qualified help.
             </p>
           </div>
         </div>

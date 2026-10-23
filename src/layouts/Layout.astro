@@ -11,14 +11,14 @@ export interface Props {
 const { title, description, canonical, noIndex = false, image, jsonLd } = Astro.props;
 
 const siteTitle = "The Driveway Mechanic";
-const siteUrl = "https://drivewaymechanic.co";
-const tagline = "Fix it yourself. Save hundreds.";
-const defaultDescription = "Learn to fix and maintain your car yourself with expert DIY guides, troubleshooting tips, and money-saving automotive advice.";
+const siteUrl = Astro.site!.origin;
+const tagline = "Practical guides for your driveway.";
+const defaultDescription = "Understand car symptoms, prepare for maintenance, and compare automotive tools with source-based guides.";
 
 const fullTitle = title === siteTitle ? `${siteTitle} - ${tagline}` : `${title} | ${siteTitle}`;
 const metaDescription = description?.trim() || defaultDescription;
 const ogImage = image ? `${siteUrl}${image}` : `${siteUrl}/og-default.jpg`;
-const pageUrl = canonical || Astro.url.href;
+const pageUrl = canonical || new URL(Astro.url.pathname, Astro.site).href;
 
 const websiteJsonLd = {
   "@context": "https://schema.org",
@@ -87,7 +87,7 @@ const websiteJsonLd = {
               </div>
               <div>
                 <div class="text-lg font-bold text-foreground">The Driveway Mechanic</div>
-                <div class="text-xs text-foreground/60 -mt-1">Fix it yourself. Save hundreds.</div>
+                <div class="text-xs text-foreground/60 -mt-1">{tagline}</div>
               </div>
             </a>
           </div>
@@ -115,7 +115,7 @@ const websiteJsonLd = {
           </button>
 
           <!-- Mobile menu button -->
-          <button id="mobile-menu-btn" class="md:hidden rounded-lg p-2 hover:bg-foreground/10" aria-label="Toggle menu" aria-expanded="false">
+          <button id="mobile-menu-btn" class="md:hidden rounded-lg p-2 hover:bg-foreground/10" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
             <svg id="menu-icon-open" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
@@ -197,7 +197,7 @@ const websiteJsonLd = {
               <div class="text-sm font-bold">The Driveway Mechanic</div>
             </div>
             <p class="text-sm text-foreground/70">
-              Learn to fix and maintain your car yourself with expert DIY guides and money-saving automotive advice.
+              Understand symptoms, prepare for maintenance, and compare tools with source-based automotive guides.
             </p>
           </div>
 
@@ -214,7 +214,7 @@ const websiteJsonLd = {
 
           <!-- Popular Articles -->
           <div>
-            <h4 class="text-sm font-semibold mb-3">Popular Articles</h4>
+            <h4 class="text-sm font-semibold mb-3">Featured Articles</h4>
             <ul class="space-y-2 text-sm">
               <li><a href="/fix/car-wont-start-clicks" class="text-foreground/70 hover:text-foreground">Car Won't Start</a></li>
               <li><a href="/fix/check-engine-light-on" class="text-foreground/70 hover:text-foreground">Check Engine Light</a></li>

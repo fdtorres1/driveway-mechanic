@@ -18,7 +18,7 @@ const {
   price,
   pros = [],
   cons = [],
-  disclaimer = "This is an affiliate link.",
+  disclaimer = "We may earn a commission if you buy through this link.",
 } = Astro.props;
 ---
 
@@ -85,7 +85,7 @@ const {
           </svg>
         </a>
         {disclaimer && (
-          <span class="text-xs text-foreground/50">{disclaimer}</span>
+          <span class="text-sm text-foreground/80">{disclaimer}</span>
         )}
       </div>
     </div>
